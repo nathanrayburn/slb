@@ -23,6 +23,7 @@ L'objectif de cet exercice est de démontrer la vulnérabilité DirtyCow (CVE-20
    - **Étape 1 : Téléchargement de l'exploit**
      - Le code source de l'exploit a été téléchargé depuis Exploit-DB et enregistré sur la machine virtuelle.
 
+![alt text](image.png)
 
 ## Conclusion
 
