@@ -16,6 +16,8 @@ L'objectif de cet exercice est de démontrer la vulnérabilité DirtyCow (CVE-20
    - [CVE-2016-5195 - DirtyCow (Mitre)](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-5195)
 
    - [CVE-2016-5195 - DirtyCow (Exploit DB)](https://www.exploit-db.com/search?cve=2016-5195)
+  
+   - [github - DirtyCow Exploit](https://github.com/dirtycow/dirtycow.github.io/wiki/PoCs)
 
 2. **URLs des exploits sur Exploit-DB :**
    - [Dirty COW' 'PTRACE_POKEDATA' Race Condition Privilege Escalation (/etc/passwd Method)](https://www.exploit-db.com/exploits/40839)
