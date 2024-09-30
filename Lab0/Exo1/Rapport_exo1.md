@@ -28,7 +28,7 @@ L'objectif de cet exercice est de démontrer la vulnérabilité DirtyCow (CVE-20
 
 3. **Procédure de production et d'exécution de l'exploit :**
    - **Étape 1 : Téléchargement de l'exploit**
-     - Le code source de l'exploit a été téléchargé depuis Exploit-DB et enregistré sur la machine virtuelle.
+     - Le code source de l'exploit a été téléchargé depuis le github et enregistré sur la machine virtuelle.
    - **Étape 2: Suivre les commandes de la console ci-dessous**
 
 ### Étape 2
