@@ -1,0 +1,2383 @@
+                             //
+                             // segment_2.1 
+                             // Loadable segment  [0x8048000 - 0x80483e7]
+                             // ram:08048000-ram:08048193
+                             //
+             assume DF = 0x0  (Default)
+        08048000 7f 45 4c        Elf32_Ehdr
+                 46 01 01 
+                 01 00 00 
+           08048000 7f              db        7Fh                     e_ident_magi
+           08048001 45 4c 46        ds        "ELF"                   e_ident_magi
+           08048004 01              db        1h                      e_ident_class
+           08048005 01              db        1h                      e_ident_data
+           08048006 01              db        1h                      e_ident_vers
+           08048007 00              db        0h                      e_ident_osabi
+           08048008 00              db        0h                      e_ident_abiv
+           08048009 00 00 00 00 00  db[7]                             e_ident_pad
+                    00 00
+           08048010 02 00           dw        2h                      e_type
+           08048012 03 00           dw        3h                      e_machine
+           08048014 01 00 00 00     ddw       1h                      e_version
+           08048018 c0 90 04 08     ddw       _start                  e_entry
+           0804801c 34 00 00 00     ddw       Elf32_Phdr_ARRAY_08048  e_phoff
+           08048020 54 37 00 00     ddw       Elf32_Shdr_ARRAY__elfS  e_shoff
+           08048024 00 00 00 00     ddw       0h                      e_flags
+           08048028 34 00           dw        34h                     e_ehsize
+           0804802a 20 00           dw        20h                     e_phentsize
+           0804802c 0b 00           dw        Bh                      e_phnum
+           0804802e 28 00           dw        28h                     e_shentsize
+           08048030 1d 00           dw        1Dh                     e_shnum
+           08048032 1c 00           dw        1Ch                     e_shstrndx
+                             Elf32_Phdr_ARRAY_08048034                       XREF[2]:     0804801c(*), 0804803c(*)  
+        08048034 06 00 00        Elf32_Ph                                                    PT_PHDR - Program header table
+                 00 34 00 
+                 00 00 34 
+                             //
+                             // .interp 
+                             // SHT_PROGBITS  [0x8048194 - 0x80481a6]
+                             // ram:08048194-ram:080481a6
+                             //
+                             s_/lib/ld-linux.so.2_08048194                   XREF[2]:     0804805c(*), 
+                                                                                          _elfSectionHeaders::00000034(*)  
+        08048194 2f 6c 69        ds         "/lib/ld-linux.so.2"                             Initial Elf program interpreter
+                 62 2f 6c 
+                 64 2d 6c 
+                             //
+                             // .note.gnu.build-id 
+                             // SHT_NOTE  [0x80481a8 - 0x80481cb]
+                             // ram:080481a8-ram:080481cb
+                             //
+                             GnuBuildId_080481a8                             XREF[2]:     0804811c(*), 
+                                                                                          _elfSectionHeaders::0000005c(*)  
+        080481a8 04 00 00        GnuBuildId                                                  Length of name field
+                 00 14 00 
+                 00 00 03 
+                             //
+                             // .note.ABI-tag 
+                             // SHT_NOTE  [0x80481cc - 0x80481eb]
+                             // ram:080481cc-ram:080481eb
+                             //
+                             __abi_tag                                       XREF[1]:     _elfSectionHeaders::00000084(*)  
+        080481cc 04 00 00        NoteAbiTag                                                  Length of name field
+                 00 10 00 
+                 00 00 01 
+                             //
+                             // .gnu.hash 
+                             // SHT_GNU_HASH  [0x80481ec - 0x804820b]
+                             // ram:080481ec-ram:0804820b
+                             //
+                             __DT_GNU_HASH                                   XREF[2]:     0804bf50(*), 
+                                                                                          _elfSectionHeaders::000000ac(*)  
+        080481ec 02 00 00 00     ddw        2h                                               GNU Hash Table - nbucket
+        080481f0 0a 00 00 00     ddw        Ah                                               GNU Hash Table - symbase
+        080481f4 01 00 00 00     ddw        1h                                               GNU Hash Table - bloom_size
+        080481f8 05 00 00 00     ddw        5h                                               GNU Hash Table - bloom_shift
+        080481fc 00 20 00 20     ddw[1]                                                      GNU Hash Table - bloom
+        08048200 00 00 00        ddw[2]                                                      GNU Hash Table - buckets
+                 00 0a 00 
+                 00 00
+        08048208 ad 4b e3 c0     ddw[1]                                                      GNU Hash Table - chain
+                             //
+                             // .dynsym 
+                             // SHT_DYNSYM  [0x804820c - 0x80482bb]
+                             // ram:0804820c-ram:080482bb
+                             //
+                             __DT_SYMTAB                                     XREF[2]:     0804bf60(*), 
+                                                                                          _elfSectionHeaders::000000d4(*)  
+        0804820c 00 00 00        Elf32_Sy
+                 00 00 00 
+                 00 00 00 
+                             //
+                             // .dynstr 
+                             // SHT_STRTAB  [0x80482bc - 0x8048347]
+                             // ram:080482bc-ram:08048347
+                             //
+                             __DT_STRTAB                                     XREF[2]:     0804bf58(*), 
+                                                                                          _elfSectionHeaders::000000fc(*)  
+        080482bc 00              ??         00h
+        080482bd 5f 49 4f        utf8       u8"_IO_stdin_used"
+                 5f 73 74 
+                 64 69 6e 
+        080482cc 5f 5f 69        utf8       u8"__isoc99_scanf"
+                 73 6f 63 
+                 39 39 5f 
+        080482db 73 74 72        utf8       u8"strlen"
+                 6c 65 6e 00
+        080482e2 5f 5f 6c        utf8       u8"__libc_start_main"
+                 69 62 63 
+                 5f 73 74 
+        080482f4 64 69 66        utf8       u8"difftime"
+                 66 74 69 
+                 6d 65 00
+        080482fd 70 75 74        utf8       u8"puts"
+                 73 00
+        08048302 70 72 69        utf8       u8"printf"
+                 6e 74 66 00
+        08048309 6d 6b 74        utf8       u8"mktime"
+                 69 6d 65 00
+        08048310 6c 69 62        utf8       u8"libc.so.6"
+                 63 2e 73 
+                 6f 2e 36 00
+        0804831a 47 4c 49        utf8       u8"GLIBC_2.7"
+                 42 43 5f 
+                 32 2e 37 00
+        08048324 47 4c 49        utf8       u8"GLIBC_2.0"
+                 42 43 5f 
+                 32 2e 30 00
+        0804832e 47 4c 49        utf8       u8"GLIBC_2.34"
+                 42 43 5f 
+                 32 2e 33 
+        08048339 5f 5f 67        utf8       u8"__gmon_start__"
+                 6d 6f 6e 
+                 5f 73 74 
+                             //
+                             // .gnu.version 
+                             // SHT_GNU_versym  [0x8048348 - 0x804835d]
+                             // ram:08048348-ram:0804835d
+                             //
+                             __DT_VERSYM                                     XREF[2]:     0804bfc8(*), 
+                                                                                          _elfSectionHeaders::00000124(*)  
+        08048348 00 00           dw         0h                                               0
+        0804834a 02 00           dw         2h                                               __libc_start_main
+        0804834c 03 00           dw         3h                                               printf
+        0804834e 03 00           dw         3h                                               time
+        08048350 03 00           dw         3h                                               mktime
+        08048352 03 00           dw         3h                                               puts
+        08048354 01 00           dw         1h                                               __gmon_start__
+        08048356 03 00           dw         3h                                               strlen
+        08048358 03 00           dw         3h                                               difftime
+        0804835a 04 00           dw         4h                                               __isoc99_scanf
+        0804835c 01 00           dw         1h                                               _IO_stdin_used
+                             //
+                             // .gnu.version_r 
+                             // SHT_GNU_verneed  [0x8048360 - 0x804839f]
+                             // ram:08048360-ram:0804839f
+                             //
+                             __DT_VERNEED                                    XREF[2]:     0804bfb8(*), 
+                                                                                          _elfSectionHeaders::0000014c(*)  
+        08048360 01              ??         01h
+        08048361 00              ??         00h
+        08048362 03              ??         03h
+        08048363 00              ??         00h
+        08048364 54              ??         54h    T
+        08048365 00              ??         00h
+        08048366 00              ??         00h
+        08048367 00              ??         00h
+        08048368 10              ??         10h
+        08048369 00              ??         00h
+        0804836a 00              ??         00h
+        0804836b 00              ??         00h
+        0804836c 00              ??         00h
+        0804836d 00              ??         00h
+        0804836e 00              ??         00h
+        0804836f 00              ??         00h
+        08048370 17              ??         17h
+        08048371 69              ??         69h    i
+        08048372 69              ??         69h    i
+        08048373 0d              ??         0Dh
+        08048374 00              ??         00h
+        08048375 00              ??         00h
+        08048376 04              ??         04h
+        08048377 00              ??         00h
+        08048378 5e              ??         5Eh    ^
+        08048379 00              ??         00h
+        0804837a 00              ??         00h
+        0804837b 00              ??         00h
+        0804837c 10              ??         10h
+        0804837d 00              ??         00h
+        0804837e 00              ??         00h
+        0804837f 00              ??         00h
+        08048380 10              ??         10h
+        08048381 69              ??         69h    i
+        08048382 69              ??         69h    i
+        08048383 0d              ??         0Dh
+        08048384 00              ??         00h
+        08048385 00              ??         00h
+        08048386 03              ??         03h
+        08048387 00              ??         00h
+        08048388 68              ??         68h    h
+        08048389 00              ??         00h
+        0804838a 00              ??         00h
+        0804838b 00              ??         00h
+        0804838c 10              ??         10h
+        0804838d 00              ??         00h
+        0804838e 00              ??         00h
+        0804838f 00              ??         00h
+        08048390 b4              ??         B4h
+        08048391 91              ??         91h
+        08048392 96              ??         96h
+        08048393 06              ??         06h
+        08048394 00              ??         00h
+        08048395 00              ??         00h
+        08048396 02              ??         02h
+        08048397 00              ??         00h
+        08048398 72              ??         72h    r
+        08048399 00              ??         00h
+        0804839a 00              ??         00h
+        0804839b 00              ??         00h
+        0804839c 00              ??         00h
+        0804839d 00              ??         00h
+        0804839e 00              ??         00h
+        0804839f 00              ??         00h
+                             //
+                             // .rel.dyn 
+                             // SHT_REL  [0x80483a0 - 0x80483a7]
+                             // ram:080483a0-ram:080483a7
+                             //
+                             __DT_REL                                        XREF[2]:     0804bfa0(*), 
+                                                                                          _elfSectionHeaders::00000174(*)  
+        080483a0 fc bf 04        Elf32_Re                                                    location to apply the relocation
+                 08 06 06 
+                 00 00
+                             //
+                             // .rel.plt 
+                             // SHT_REL  [0x80483a8 - 0x80483e7]
+                             // ram:080483a8-ram:080483e7
+                             //
+                             __DT_JMPREL                                     XREF[2]:     0804bf98(*), 
+                                                                                          _elfSectionHeaders::0000019c(*)  
+        080483a8 0c c0 04        Elf32_Re                                                    location to apply the relocation
+                 08 07 01 
+                 00 00 10 
+                             //
+                             // .init 
+                             // SHT_PROGBITS  [0x8049000 - 0x8049023]
+                             // ram:08049000-ram:08049023
+                             //
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             int __cdecl _init(EVP_PKEY_CTX * ctx)
+             int               EAX:4          <RETURN>
+             EVP_PKEY_CTX *    Stack[0x4]:4   ctx
+                             __DT_INIT                                       XREF[4]:     Entry Point(*), 0804809c(*), 
+                             _init                                                        0804bf20(*), 
+                                                                                          _elfSectionHeaders::000001c4(*)  
+        08049000 f3 0f 1e fb     ENDBR32
+        08049004 53              PUSH       EBX
+        08049005 83 ec 08        SUB        ESP,0x8
+        08049008 e8 03 01        CALL       __x86.get_pc_thunk.bx                            undefined __x86.get_pc_thunk.bx()
+                 00 00
+        0804900d 81 c3 f3        ADD        EBX,0x2ff3
+                 2f 00 00
+        08049013 8b 83 fc        MOV        EAX=><EXTERNAL>::__gmon_start__,dword ptr [EBX   = ??
+                 ff ff ff                                                                    = 0804d014
+        08049019 85 c0           TEST       EAX,EAX
+        0804901b 74 02           JZ         LAB_0804901f
+        0804901d ff d0           CALL       EAX=><EXTERNAL>::__gmon_start__                  undefined __gmon_start__()
+                             LAB_0804901f                                    XREF[1]:     0804901b(j)  
+        0804901f 83 c4 08        ADD        ESP,0x8
+        08049022 5b              POP        EBX
+        08049023 c3              RET
+                             //
+                             // .plt 
+                             // SHT_PROGBITS  [0x8049030 - 0x80490bf]
+                             // ram:08049030-ram:080490bf
+                             //
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined FUN_08049030()
+                               assume EBX = 0x804c000
+             undefined         AL:1           <RETURN>
+                             FUN_08049030                                    XREF[11]:    0804904b(c), 0804905b(c), 
+                                                                                          0804906b(c), 0804907b(c), 
+                                                                                          0804908b(c), 0804909b(c), 
+                                                                                          080490ab(c), 080490bb(c), 
+                                                                                          0804a0f4, 0804a18c(*), 
+                                                                                          _elfSectionHeaders::000001ec(*)  
+        08049030 ff 35 04        PUSH       dword ptr [PTR_0804c004]                         = 00000000
+                 c0 04 08
+        08049036 ff 25 08        JMP        dword ptr [PTR_0804c008]
+                 c0 04 08
+        0804903c 00              ??         00h
+        0804903d 00              ??         00h
+        0804903e 00              ??         00h
+        0804903f 00              ??         00h
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk undefined __libc_start_main()
+                               Thunked-Function: <EXTERNAL>::__libc_star
+                               assume EBX = 0x804c000
+             undefined         AL:1           <RETURN>
+                             <EXTERNAL>::__libc_start_main                   XREF[1]:     _start:080490e7(c)  
+        08049040 ff 25 0c        JMP        dword ptr [-><EXTERNAL>::__libc_start_main]      undefined __libc_start_main()
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        08049046 68 00 00        PUSH       0x0
+                 00 00
+        0804904b e9 e0 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk int printf(char * __format, ...)
+                               Thunked-Function: <EXTERNAL>::printf
+                               assume EBX = 0x804c000
+             int               EAX:4          <RETURN>
+             char *            Stack[0x4]:4   __format
+                             <EXTERNAL>::printf                              XREF[5]:     main:08049615(c), 
+                                                                                          main:08049660(c), 
+                                                                                          main:08049670(c), 
+                                                                                          main:080497b5(c), 
+                                                                                          main:080497e3(c)  
+        08049050 ff 25 10        JMP        dword ptr [-><EXTERNAL>::printf]                 int printf(char * __format, ...)
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        08049056 68 08 00        PUSH       0x8
+                 00 00
+        0804905b e9 d0 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk time_t time(time_t * __timer)
+                               Thunked-Function: <EXTERNAL>::time
+                               assume EBX = 0x804c000
+             time_t            EAX:4          <RETURN>
+             time_t *          Stack[0x4]:4   __timer
+                             <EXTERNAL>::time                                XREF[1]:     getMode:0804941c(c)  
+        08049060 ff 25 14        JMP        dword ptr [-><EXTERNAL>::time]                   time_t time(time_t * __timer)
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        08049066 68 10 00        PUSH       0x10
+                 00 00
+        0804906b e9 c0 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk time_t mktime(tm * __tp)
+                               Thunked-Function: <EXTERNAL>::mktime
+                               assume EBX = 0x804c000
+             time_t            EAX:4          <RETURN>
+             tm *              Stack[0x4]:4   __tp
+                             <EXTERNAL>::mktime                              XREF[1]:     getMode:0804942e(c)  
+        08049070 ff 25 18        JMP        dword ptr [-><EXTERNAL>::mktime]                 time_t mktime(tm * __tp)
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        08049076 68 18 00        PUSH       0x18
+                 00 00
+        0804907b e9 b0 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk int puts(char * __s)
+                               Thunked-Function: <EXTERNAL>::puts
+                               assume EBX = 0x804c000
+             int               EAX:4          <RETURN>
+             char *            Stack[0x4]:4   __s
+                             <EXTERNAL>::puts                                XREF[3]:     main:08049605(c), 
+                                                                                          main:08049787(c), 
+                                                                                          main:08049804(c)  
+        08049080 ff 25 1c        JMP        dword ptr [-><EXTERNAL>::puts]                   int puts(char * __s)
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        08049086 68 20 00        PUSH       0x20
+                 00 00
+        0804908b e9 a0 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk size_t strlen(char * __s)
+                               Thunked-Function: <EXTERNAL>::strlen
+                               assume EBX = 0x804c000
+             size_t            EAX:4          <RETURN>
+             char *            Stack[0x4]:4   __s
+                             <EXTERNAL>::strlen                              XREF[5]:     getSecret:080492ba(c), 
+                                                                                          getSecret:080492cd(c), 
+                                                                                          getOTP:08049484(c), 
+                                                                                          main:08049693(c), 
+                                                                                          main:080496a8(c)  
+        08049090 ff 25 20        JMP        dword ptr [-><EXTERNAL>::strlen]                 size_t strlen(char * __s)
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        08049096 68 28 00        PUSH       0x28
+                 00 00
+        0804909b e9 90 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk double difftime(time_t __time1, time_t __time0)
+                               Thunked-Function: <EXTERNAL>::difftime
+                               assume EBX = 0x804c000
+             double            ST0:10         <RETURN>
+             time_t            Stack[0x4]:4   __time1
+             time_t            Stack[0x8]:4   __time0
+                             <EXTERNAL>::difftime                            XREF[1]:     getMode:0804943d(c)  
+        080490a0 ff 25 24        JMP        dword ptr [-><EXTERNAL>::difftime]               double difftime(time_t __time1, 
+                 c0 04 08
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        080490a6 68 30 00        PUSH       0x30
+                 00 00
+        080490ab e9 80 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk undefined __isoc99_scanf()
+                               Thunked-Function: <EXTERNAL>::__isoc99_sc
+                               assume EBX = 0x804c000
+             undefined         AL:1           <RETURN>
+                             <EXTERNAL>::__isoc99_scanf                      XREF[2]:     main:08049629(c), 
+                                                                                          main:08049684(c)  
+        080490b0 ff 25 28        JMP        dword ptr [DAT_0804c028]                         undefined __isoc99_scanf()
+                 c0 04 08                                                                    -> __isoc99_scanf
+                             -- Flow Override: CALL_RETURN (COMPUTED_CALL_TERMINATOR)
+        080490b6 68 38 00        PUSH       0x38
+                 00 00
+        080490bb e9 70 ff        JMP        FUN_08049030                                     undefined FUN_08049030()
+                 ff ff
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             //
+                             // .text 
+                             // SHT_PROGBITS  [0x80490c0 - 0x804981a]
+                             // ram:080490c0-ram:0804981a
+                             //
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined processEntry _start()
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[-0x8]:4  local_8                                 XREF[1]:     080490cd(*)  
+                             _start                                          XREF[5]:     Entry Point(*), 08048018(*), 
+                                                                                          0804a0fc, 0804a164(*), 
+                                                                                          _elfSectionHeaders::00000214(*)  
+        080490c0 f3 0f 1e fb     ENDBR32
+        080490c4 31 ed           XOR        EBP,EBP
+        080490c6 5e              POP        ESI
+        080490c7 89 e1           MOV        ECX,ESP
+        080490c9 83 e4 f0        AND        ESP,0xfffffff0
+        080490cc 50              PUSH       EAX
+        080490cd 54              PUSH       ESP=>local_8
+        080490ce 52              PUSH       EDX
+        080490cf e8 19 00        CALL       __i686.get_pc_thunk.bx                           undefined __i686.get_pc_thunk.bx()
+                 00 00
+        080490d4 81 c3 2c        ADD        EBX,0x2f2c
+                 2f 00 00
+        080490da 6a 00           PUSH       0x0
+        080490dc 6a 00           PUSH       0x0
+        080490de 51              PUSH       ECX
+        080490df 56              PUSH       ESI
+        080490e0 c7 c0 e3        MOV        EAX,main
+                 95 04 08
+        080490e6 50              PUSH       EAX=>main
+        080490e7 e8 54 ff        CALL       <EXTERNAL>::__libc_start_main                    undefined __libc_start_main()
+                 ff ff
+        080490ec f4              HLT
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined __i686.get_pc_thunk.bx()
+                               Call-Fixup: get_pc_thunk_bx
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x0]:4   local_res0                              XREF[1]:     080490ed(*)  
+                             __i686.get_pc_thunk.bx                          XREF[1]:     _start:080490cf(c)  
+        080490ed 8b 1c 24        MOV        EBX,dword ptr [ESP]=>local_res0
+        080490f0 c3              RET
+        080490f1 66              ??         66h    f
+        080490f2 90              ??         90h
+        080490f3 66              ??         66h    f
+        080490f4 90              ??         90h
+        080490f5 66              ??         66h    f
+        080490f6 90              ??         90h
+        080490f7 66              ??         66h    f
+        080490f8 90              ??         90h
+        080490f9 66              ??         66h    f
+        080490fa 90              ??         90h
+        080490fb 66              ??         66h    f
+        080490fc 90              ??         90h
+        080490fd 66              ??         66h    f
+        080490fe 90              ??         90h
+        080490ff 90              ??         90h
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined _dl_relocate_static_pie()
+             undefined         AL:1           <RETURN>
+                             _dl_relocate_static_pie                         XREF[3]:     Entry Point(*), 0804a104, 
+                                                                                          0804a178(*)  
+        08049100 f3 0f 1e fb     ENDBR32
+        08049104 c3              RET
+        08049105 66              ??         66h    f
+        08049106 90              ??         90h
+        08049107 66              ??         66h    f
+        08049108 90              ??         90h
+        08049109 66              ??         66h    f
+        0804910a 90              ??         90h
+        0804910b 66              ??         66h    f
+        0804910c 90              ??         90h
+        0804910d 66              ??         66h    f
+        0804910e 90              ??         90h
+        0804910f 90              ??         90h
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined __x86.get_pc_thunk.bx()
+                               Call-Fixup: get_pc_thunk_bx
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x0]:4   local_res0                              XREF[1]:     08049110(*)  
+                             __i686.get_pc_thunk.bx                          XREF[3]:     Entry Point(*), 
+                             __x86.get_pc_thunk.bx                                        _init:08049008(c), 
+                                                                                          _fini:08049824(c)  
+        08049110 8b 1c 24        MOV        EBX,dword ptr [ESP]=>local_res0
+        08049113 c3              RET
+        08049114 66              ??         66h    f
+        08049115 90              ??         90h
+        08049116 66              ??         66h    f
+        08049117 90              ??         90h
+        08049118 66              ??         66h    f
+        08049119 90              ??         90h
+        0804911a 66              ??         66h    f
+        0804911b 90              ??         90h
+        0804911c 66              ??         66h    f
+        0804911d 90              ??         90h
+        0804911e 66              ??         66h    f
+        0804911f 90              ??         90h
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined deregister_tm_clones()
+             undefined         AL:1           <RETURN>
+                             deregister_tm_clones                            XREF[1]:     __do_global_dtors_aux:080491b3(c
+        08049120 b8 58 c0        MOV        EAX,completed.0                                  = ??
+                 04 08
+        08049125 3d 58 c0        CMP        EAX,completed.0                                  = ??
+                 04 08
+        0804912a 74 24           JZ         LAB_08049150
+        0804912c b8 00 00        MOV        EAX,0x0
+                 00 00
+        08049131 85 c0           TEST       EAX,EAX
+        08049133 74 1b           JZ         LAB_08049150
+        08049135 55              PUSH       EBP
+        08049136 89 e5           MOV        EBP,ESP
+        08049138 83 ec 14        SUB        ESP,0x14
+        0804913b 68 58 c0        PUSH       completed.0                                      = ??
+                 04 08
+        08049140 ff d0           CALL       EAX
+        08049142 83 c4 10        ADD        ESP,0x10
+        08049145 c9              LEAVE
+        08049146 c3              RET
+        08049147 8d              ??         8Dh
+        08049148 b4              ??         B4h
+        08049149 26              ??         26h    &
+        0804914a 00              ??         00h
+        0804914b 00              ??         00h
+        0804914c 00              ??         00h
+        0804914d 00              ??         00h
+        0804914e 66              ??         66h    f
+        0804914f 90              ??         90h
+                             LAB_08049150                                    XREF[2]:     0804912a(j), 08049133(j)  
+        08049150 c3              RET
+        08049151 8d              ??         8Dh
+        08049152 b4              ??         B4h
+        08049153 26              ??         26h    &
+        08049154 00              ??         00h
+        08049155 00              ??         00h
+        08049156 00              ??         00h
+        08049157 00              ??         00h
+        08049158 8d              ??         8Dh
+        08049159 b4              ??         B4h
+        0804915a 26              ??         26h    &
+        0804915b 00              ??         00h
+        0804915c 00              ??         00h
+        0804915d 00              ??         00h
+        0804915e 00              ??         00h
+        0804915f 90              ??         90h
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined register_tm_clones()
+             undefined         AL:1           <RETURN>
+                             register_tm_clones                              XREF[1]:     frame_dummy:080491d0(T), 
+                                                                                          frame_dummy:080491d4(c)  
+        08049160 b8 58 c0        MOV        EAX,completed.0                                  = ??
+                 04 08
+        08049165 2d 58 c0        SUB        EAX,completed.0                                  = ??
+                 04 08
+        0804916a 89 c2           MOV        EDX,EAX
+        0804916c c1 e8 1f        SHR        EAX,0x1f
+        0804916f c1 fa 02        SAR        EDX,0x2
+        08049172 01 d0           ADD        EAX,EDX
+        08049174 d1 f8           SAR        EAX,0x1
+        08049176 74 20           JZ         LAB_08049198
+        08049178 ba 00 00        MOV        EDX,0x0
+                 00 00
+        0804917d 85 d2           TEST       EDX,EDX
+        0804917f 74 17           JZ         LAB_08049198
+        08049181 55              PUSH       EBP
+        08049182 89 e5           MOV        EBP,ESP
+        08049184 83 ec 10        SUB        ESP,0x10
+        08049187 50              PUSH       EAX
+        08049188 68 58 c0        PUSH       completed.0                                      = ??
+                 04 08
+        0804918d ff d2           CALL       EDX
+        0804918f 83 c4 10        ADD        ESP,0x10
+        08049192 c9              LEAVE
+        08049193 c3              RET
+        08049194 8d              ??         8Dh
+        08049195 74              ??         74h    t
+        08049196 26              ??         26h    &
+        08049197 00              ??         00h
+                             LAB_08049198                                    XREF[2]:     08049176(j), 0804917f(j)  
+        08049198 c3              RET
+        08049199 8d              ??         8Dh
+        0804919a b4              ??         B4h
+        0804919b 26              ??         26h    &
+        0804919c 00              ??         00h
+        0804919d 00              ??         00h
+        0804919e 00              ??         00h
+        0804919f 00              ??         00h
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined __do_global_dtors_aux()
+             undefined         AL:1           <RETURN>
+                             __do_global_dtors_aux                           XREF[2]:     Entry Point(*), 0804bf10(*)  
+        080491a0 f3 0f 1e fb     ENDBR32
+        080491a4 80 3d 58        CMP        byte ptr [completed.0],0x0                       = ??
+                 c0 04 08 00
+        080491ab 75 1b           JNZ        LAB_080491c8
+        080491ad 55              PUSH       EBP
+        080491ae 89 e5           MOV        EBP,ESP
+        080491b0 83 ec 08        SUB        ESP,0x8
+        080491b3 e8 68 ff        CALL       deregister_tm_clones                             undefined deregister_tm_clones()
+                 ff ff
+        080491b8 c6 05 58        MOV        byte ptr [completed.0],0x1                       = ??
+                 c0 04 08 01
+        080491bf c9              LEAVE
+        080491c0 c3              RET
+        080491c1 8d              ??         8Dh
+        080491c2 b4              ??         B4h
+        080491c3 26              ??         26h    &
+        080491c4 00              ??         00h
+        080491c5 00              ??         00h
+        080491c6 00              ??         00h
+        080491c7 00              ??         00h
+                             LAB_080491c8                                    XREF[1]:     080491ab(j)  
+        080491c8 c3              RET
+        080491c9 8d              ??         8Dh
+        080491ca b4              ??         B4h
+        080491cb 26              ??         26h    &
+        080491cc 00              ??         00h
+        080491cd 00              ??         00h
+        080491ce 00              ??         00h
+        080491cf 00              ??         00h
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk undefined frame_dummy()
+                               Thunked-Function: register_tm_clones
+             undefined         AL:1           <RETURN>
+                             frame_dummy                                     XREF[2]:     Entry Point(*), 0804bf0c(*)  
+        080491d0 f3 0f 1e fb     ENDBR32
+        080491d4 eb 8a           JMP        register_tm_clones                               undefined register_tm_clones()
+                             -- Flow Override: CALL_RETURN (CALL_TERMINATOR)
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined out(undefined4 param_1, undefined4 param_2)
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x4]:4   param_1                                 XREF[1]:     080491dc(R)  
+             undefined4        Stack[0x8]:4   param_2                                 XREF[2]:     080491e2(R), 
+                                                                                                   080491ed(R)  
+             undefined1        Stack[-0x8]:1  local_8                                 XREF[3]:     080491df(W), 
+                                                                                                   080491e8(R), 
+                                                                                                   080491f6(R)  
+                             out                                             XREF[6]:     Entry Point(*), mv:08049272(c), 
+                                                                                          main:080496d8(c), 
+                                                                                          main:080496ff(c), 0804a10c, 
+                                                                                          0804a1b0(*)  
+        080491d6 55              PUSH       EBP
+        080491d7 89 e5           MOV        EBP,ESP
+        080491d9 83 ec 04        SUB        ESP,0x4
+        080491dc 8b 45 08        MOV        EAX,dword ptr [EBP + param_1]
+        080491df 88 45 fc        MOV        byte ptr [EBP + local_8],AL
+        080491e2 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        080491e5 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        080491e8 38 45 fc        CMP        byte ptr [EBP + local_8],AL
+        080491eb 72 0e           JC         LAB_080491fb
+        080491ed 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        080491f0 83 c0 01        ADD        EAX,0x1
+        080491f3 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        080491f6 38 45 fc        CMP        byte ptr [EBP + local_8],AL
+        080491f9 76 07           JBE        LAB_08049202
+                             LAB_080491fb                                    XREF[1]:     080491eb(j)  
+        080491fb b8 01 00        MOV        EAX,0x1
+                 00 00
+        08049200 eb 05           JMP        LAB_08049207
+                             LAB_08049202                                    XREF[1]:     080491f9(j)  
+        08049202 b8 00 00        MOV        EAX,0x0
+                 00 00
+                             LAB_08049207                                    XREF[1]:     08049200(j)  
+        08049207 c9              LEAVE
+        08049208 c3              RET
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined nrm(undefined4 param_1, undefined4 param_2)
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x4]:4   param_1                                 XREF[1]:     0804920f(R)  
+             undefined4        Stack[0x8]:4   param_2                                 XREF[5]:     08049219(R), 
+                                                                                                   08049227(R), 
+                                                                                                   08049234(R), 
+                                                                                                   08049240(R), 
+                                                                                                   08049254(R)  
+             undefined1        Stack[-0x8]:1  local_8                                 XREF[2]:     08049212(W), 
+                                                                                                   08049215(R)  
+                             nrm                                             XREF[5]:     Entry Point(*), 
+                                                                                          getSecret:080493a7(c), 
+                                                                                          getOTP:08049519(c), 0804a114, 
+                                                                                          0804a1d0(*)  
+        08049209 55              PUSH       EBP
+        0804920a 89 e5           MOV        EBP,ESP
+        0804920c 83 ec 04        SUB        ESP,0x4
+        0804920f 8b 45 08        MOV        EAX,dword ptr [EBP + param_1]
+        08049212 88 45 fc        MOV        byte ptr [EBP + local_8],AL
+        08049215 0f b6 55 fc     MOVZX      EDX,byte ptr [EBP + local_8]
+        08049219 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804921c 83 c0 01        ADD        EAX,0x1
+        0804921f 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049222 0f b6 c0        MOVZX      EAX,AL
+        08049225 01 c2           ADD        EDX,EAX
+        08049227 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804922a 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        0804922d 0f b6 c0        MOVZX      EAX,AL
+        08049230 01 c0           ADD        EAX,EAX
+        08049232 29 c2           SUB        EDX,EAX
+        08049234 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        08049237 83 c0 01        ADD        EAX,0x1
+        0804923a 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        0804923d 0f b6 c8        MOVZX      ECX,AL
+        08049240 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        08049243 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049246 0f b6 c0        MOVZX      EAX,AL
+        08049249 29 c1           SUB        ECX,EAX
+        0804924b 89 d0           MOV        EAX,EDX
+        0804924d 99              CDQ
+        0804924e f7 f9           IDIV       ECX
+        08049250 89 d0           MOV        EAX,EDX
+        08049252 89 c2           MOV        EDX,EAX
+        08049254 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        08049257 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        0804925a 01 d0           ADD        EAX,EDX
+        0804925c c9              LEAVE
+        0804925d c3              RET
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined mv(undefined4 param_1, undefined4 param_2, und
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x4]:4   param_1                                 XREF[1]:     08049264(R)  
+             undefined4        Stack[0x8]:4   param_2                                 XREF[2]:     0804926e(R), 
+                                                                                                   08049288(R)  
+             undefined4        Stack[0xc]:4   param_3                                 XREF[1]:     08049293(R)  
+             undefined1        Stack[-0x8]:1  local_8                                 XREF[3]:     08049267(W), 
+                                                                                                   0804926a(R), 
+                                                                                                   08049284(R)  
+                             mv                                              XREF[7]:     Entry Point(*), 
+                                                                                          getOTP:08049536(c), 
+                                                                                          getOTP:08049553(c), 
+                                                                                          getOTP:0804957a(c), 
+                                                                                          getOTP:08049597(c), 0804a11c, 
+                                                                                          0804a1f0(*)  
+        0804925e 55              PUSH       EBP
+        0804925f 89 e5           MOV        EBP,ESP
+        08049261 83 ec 04        SUB        ESP,0x4
+        08049264 8b 45 08        MOV        EAX,dword ptr [EBP + param_1]
+        08049267 88 45 fc        MOV        byte ptr [EBP + local_8],AL
+        0804926a 0f b6 45 fc     MOVZX      EAX,byte ptr [EBP + local_8]
+        0804926e ff 75 0c        PUSH       dword ptr [EBP + param_2]
+        08049271 50              PUSH       EAX
+        08049272 e8 5f ff        CALL       out                                              undefined out(undefined4 param_1
+                 ff ff
+        08049277 83 c4 08        ADD        ESP,0x8
+        0804927a 85 c0           TEST       EAX,EAX
+        0804927c 0f 94 c0        SETZ       AL
+        0804927f 0f b6 c0        MOVZX      EAX,AL
+        08049282 89 c1           MOV        ECX,EAX
+        08049284 0f b6 55 fc     MOVZX      EDX,byte ptr [EBP + local_8]
+        08049288 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804928b 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        0804928e 0f b6 c0        MOVZX      EAX,AL
+        08049291 29 c2           SUB        EDX,EAX
+        08049293 8b 45 10        MOV        EAX,dword ptr [EBP + param_3]
+        08049296 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049299 0f b6 c0        MOVZX      EAX,AL
+        0804929c 01 d0           ADD        EAX,EDX
+        0804929e 89 c2           MOV        EDX,EAX
+        080492a0 89 c8           MOV        EAX,ECX
+        080492a2 0f af c2        IMUL       EAX,EDX
+        080492a5 c9              LEAVE
+        080492a6 c3              RET
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined getSecret(undefined4 param_1, undefined4 param
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x4]:4   param_1                                 XREF[2]:     080492b7(R), 
+                                                                                                   080492e7(R)  
+             undefined4        Stack[0x8]:4   param_2                                 XREF[8]:     080492ef(R), 
+                                                                                                   08049308(R), 
+                                                                                                   0804931c(R), 
+                                                                                                   08049334(R), 
+                                                                                                   0804933c(R), 
+                                                                                                   0804935b(R), 
+                                                                                                   0804937b(R), 
+                                                                                                   080493b4(R)  
+             undefined4        Stack[-0x10]:4 local_10                                XREF[3]:     08049310(W), 
+                                                                                                   080493d7(RW), 
+                                                                                                   080493e0(R)  
+             undefined4        Stack[-0x14]:4 local_14                                XREF[17]:    080492db(W), 
+                                                                                                   080492e4(R), 
+                                                                                                   080492ec(R), 
+                                                                                                   080492f9(RW), 
+                                                                                                   080492fd(R), 
+                                                                                                   08049325(W), 
+                                                                                                   0804932e(R), 
+                                                                                                   08049339(R), 
+                                                                                                   08049346(RW), 
+                                                                                                   08049350(R), 
+                                                                                                   08049366(W), 
+                                                                                                   08049378(R), 
+                                                                                                   08049385(R), 
+                                                                                                   080493b1(R), 
+                                                                                                   080493c6(R), 
+                                                                                                   080493cb(RW), 
+                                                                                                   080493cf(R)  
+             undefined4        Stack[-0x18]:4 local_18                                XREF[3]:     0804936f(W), 
+                                                                                                   080493bf(RW), 
+                                                                                                   080493c3(R)  
+             undefined4        Stack[-0x1c]:4 local_1c                                XREF[3]:     080492ad(W), 
+                                                                                                   080493bb(RW), 
+                                                                                                   080493e9(R)  
+             undefined4        Stack[-0x20]:4 local_20                                XREF[6]:     080492c2(W), 
+                                                                                                   08049300(R), 
+                                                                                                   08049305(R), 
+                                                                                                   0804934a(R), 
+                                                                                                   08049355(R), 
+                                                                                                   080493d2(R)  
+             undefined4        Stack[-0x24]:4 local_24                                XREF[2]:     080492d8(W), 
+                                                                                                   08049389(R)  
+             undefined1        Stack[-0x25]:1 local_25                                XREF[4]:     08049322(W), 
+                                                                                                   08049360(R), 
+                                                                                                   08049397(W), 
+                                                                                                   0804939a(R)  
+                             getSecret                                       XREF[4]:     Entry Point(*), main:08049726(c), 
+                                                                                          0804a124, 0804a210(*)  
+        080492a7 55              PUSH       EBP
+        080492a8 89 e5           MOV        EBP,ESP
+        080492aa 83 ec 28        SUB        ESP,0x28
+        080492ad c7 45 e8        MOV        dword ptr [EBP + local_1c],0x0
+                 00 00 00 00
+        080492b4 83 ec 0c        SUB        ESP,0xc
+        080492b7 ff 75 08        PUSH       dword ptr [EBP + param_1]
+        080492ba e8 d1 fd        CALL       <EXTERNAL>::strlen                               size_t strlen(char * __s)
+                 ff ff
+        080492bf 83 c4 10        ADD        ESP,0x10
+        080492c2 89 45 e4        MOV        dword ptr [EBP + local_20],EAX
+        080492c5 83 ec 0c        SUB        ESP,0xc
+        080492c8 68 34 c0        PUSH       masterKey                                        = "masterKey"
+                 04 08
+        080492cd e8 be fd        CALL       <EXTERNAL>::strlen                               size_t strlen(char * __s)
+                 ff ff
+        080492d2 83 c4 10        ADD        ESP,0x10
+        080492d5 83 e8 01        SUB        EAX,0x1
+        080492d8 89 45 e0        MOV        dword ptr [EBP + local_24],EAX
+        080492db c7 45 f0        MOV        dword ptr [EBP + local_14],0x0
+                 00 00 00 00
+        080492e2 eb 19           JMP        LAB_080492fd
+                             LAB_080492e4                                    XREF[1]:     08049303(j)  
+        080492e4 8b 55 f0        MOV        EDX,dword ptr [EBP + local_14]
+        080492e7 8b 45 08        MOV        EAX,dword ptr [EBP + param_1]
+        080492ea 01 d0           ADD        EAX,EDX
+        080492ec 8b 4d f0        MOV        ECX,dword ptr [EBP + local_14]
+        080492ef 8b 55 0c        MOV        EDX,dword ptr [EBP + param_2]
+        080492f2 01 ca           ADD        EDX,ECX
+        080492f4 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        080492f7 88 02           MOV        byte ptr [EDX],AL
+        080492f9 83 45 f0 01     ADD        dword ptr [EBP + local_14],0x1
+                             LAB_080492fd                                    XREF[1]:     080492e2(j)  
+        080492fd 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+        08049300 3b 45 e4        CMP        EAX,dword ptr [EBP + local_20]
+        08049303 7c df           JL         LAB_080492e4
+        08049305 8b 55 e4        MOV        EDX,dword ptr [EBP + local_20]
+        08049308 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804930b 01 d0           ADD        EAX,EDX
+        0804930d c6 00 00        MOV        byte ptr [EAX],0x0
+        08049310 c7 45 f4        MOV        dword ptr [EBP + local_10],0x0
+                 00 00 00 00
+        08049317 e9 bf 00        JMP        LAB_080493db
+                 00 00
+                             LAB_0804931c                                    XREF[1]:     080493e3(j)  
+        0804931c 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804931f 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049322 88 45 df        MOV        byte ptr [EBP + local_25],AL
+        08049325 c7 45 f0        MOV        dword ptr [EBP + local_14],0x0
+                 00 00 00 00
+        0804932c eb 1c           JMP        LAB_0804934a
+                             LAB_0804932e                                    XREF[1]:     08049353(j)  
+        0804932e 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+        08049331 8d 50 01        LEA        EDX,[EAX + 0x1]
+        08049334 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        08049337 01 d0           ADD        EAX,EDX
+        08049339 8b 4d f0        MOV        ECX,dword ptr [EBP + local_14]
+        0804933c 8b 55 0c        MOV        EDX,dword ptr [EBP + param_2]
+        0804933f 01 ca           ADD        EDX,ECX
+        08049341 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049344 88 02           MOV        byte ptr [EDX],AL
+        08049346 83 45 f0 01     ADD        dword ptr [EBP + local_14],0x1
+                             LAB_0804934a                                    XREF[1]:     0804932c(j)  
+        0804934a 8b 45 e4        MOV        EAX,dword ptr [EBP + local_20]
+        0804934d 83 e8 01        SUB        EAX,0x1
+        08049350 39 45 f0        CMP        dword ptr [EBP + local_14],EAX
+        08049353 7c d9           JL         LAB_0804932e
+        08049355 8b 45 e4        MOV        EAX,dword ptr [EBP + local_20]
+        08049358 8d 50 ff        LEA        EDX,[EAX + -0x1]
+        0804935b 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804935e 01 c2           ADD        EDX,EAX
+        08049360 0f b6 45 df     MOVZX      EAX,byte ptr [EBP + local_25]
+        08049364 88 02           MOV        byte ptr [EDX],AL
+        08049366 c7 45 f0        MOV        dword ptr [EBP + local_14],0x0
+                 00 00 00 00
+        0804936d eb 60           JMP        LAB_080493cf
+                             LAB_0804936f                                    XREF[1]:     080493d5(j)  
+        0804936f c7 45 ec        MOV        dword ptr [EBP + local_18],0x0
+                 00 00 00 00
+        08049376 eb 4b           JMP        LAB_080493c3
+                             LAB_08049378                                    XREF[1]:     080493c9(j)  
+        08049378 8b 55 f0        MOV        EDX,dword ptr [EBP + local_14]
+        0804937b 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        0804937e 01 d0           ADD        EAX,EDX
+        08049380 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049383 89 c1           MOV        ECX,EAX
+        08049385 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+        08049388 99              CDQ
+        08049389 f7 7d e0        IDIV       dword ptr [EBP + local_24]
+        0804938c 89 d0           MOV        EAX,EDX
+        0804938e 0f b6 80        MOVZX      EAX,byte ptr [EAX + masterKey]                   = "masterKey"
+                 34 c0 04 08
+        08049395 01 c8           ADD        EAX,ECX
+        08049397 88 45 df        MOV        byte ptr [EBP + local_25],AL
+        0804939a 0f b6 45 df     MOVZX      EAX,byte ptr [EBP + local_25]
+        0804939e 83 ec 08        SUB        ESP,0x8
+        080493a1 68 4c c0        PUSH       okC                                              = 7A30h
+                 04 08
+        080493a6 50              PUSH       EAX
+        080493a7 e8 5d fe        CALL       nrm                                              undefined nrm(undefined4 param_1
+                 ff ff
+        080493ac 83 c4 10        ADD        ESP,0x10
+        080493af 89 c2           MOV        EDX,EAX
+        080493b1 8b 4d f0        MOV        ECX,dword ptr [EBP + local_14]
+        080493b4 8b 45 0c        MOV        EAX,dword ptr [EBP + param_2]
+        080493b7 01 c8           ADD        EAX,ECX
+        080493b9 88 10           MOV        byte ptr [EAX],DL
+        080493bb 83 45 e8 01     ADD        dword ptr [EBP + local_1c],0x1
+        080493bf 83 45 ec 01     ADD        dword ptr [EBP + local_18],0x1
+                             LAB_080493c3                                    XREF[1]:     08049376(j)  
+        080493c3 8b 45 ec        MOV        EAX,dword ptr [EBP + local_18]
+        080493c6 3b 45 f0        CMP        EAX,dword ptr [EBP + local_14]
+        080493c9 7c ad           JL         LAB_08049378
+        080493cb 83 45 f0 01     ADD        dword ptr [EBP + local_14],0x1
+                             LAB_080493cf                                    XREF[1]:     0804936d(j)  
+        080493cf 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+        080493d2 3b 45 e4        CMP        EAX,dword ptr [EBP + local_20]
+        080493d5 7c 98           JL         LAB_0804936f
+        080493d7 83 45 f4 01     ADD        dword ptr [EBP + local_10],0x1
+                             LAB_080493db                                    XREF[1]:     08049317(j)  
+        080493db a1 54 c0        MOV        EAX,[NL]                                         = 00000064h
+                 04 08
+        080493e0 39 45 f4        CMP        dword ptr [EBP + local_10],EAX
+        080493e3 0f 8c 33        JL         LAB_0804931c
+                 ff ff ff
+        080493e9 8b 45 e8        MOV        EAX,dword ptr [EBP + local_1c]
+        080493ec c9              LEAVE
+        080493ed c3              RET
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined getMode()
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[-0x10]:4 local_10                                XREF[2]:     08049424(W), 
+                                                                                                   0804943a(R)  
+             undefined4        Stack[-0x28]:4 local_28                                XREF[1]:     080493fb(W)  
+             undefined4        Stack[-0x2c]:4 local_2c                                XREF[1]:     080493f4(W)  
+             undefined4        Stack[-0x34]:4 local_34                                XREF[1]:     08049402(W)  
+             undefined4        Stack[-0x38]:4 local_38                                XREF[1]:     08049409(W)  
+             undefined4        Stack[-0x3c]:4 local_3c                                XREF[2]:     08049410(W), 
+                                                                                                   0804942a(*)  
+             undefined2        Stack[-0x3e]:2 local_3e                                XREF[3]:     0804944d(W), 
+                                                                                                   08049450(R), 
+                                                                                                   08049461(R)  
+             undefined2        Stack[-0x40]:2 local_40                                XREF[2]:     08049457(W), 
+                                                                                                   0804945b(R)  
+             undefined4        Stack[-0x44]:4 local_44                                XREF[2]:     0804945e(W), 
+                                                                                                   08049464(R)  
+                             getMode                                         XREF[4]:     Entry Point(*), main:080495f5(c), 
+                                                                                          0804a12c, 0804a230(*)  
+        080493ee 55              PUSH       EBP
+        080493ef 89 e5           MOV        EBP,ESP
+        080493f1 83 ec 48        SUB        ESP,0x48
+        080493f4 c7 45 d8        MOV        dword ptr [EBP + local_2c],0x0
+                 00 00 00 00
+        080493fb c7 45 dc        MOV        dword ptr [EBP + local_28],0x64
+                 64 00 00 00
+        08049402 c7 45 d0        MOV        dword ptr [EBP + local_34],0x0
+                 00 00 00 00
+        08049409 c7 45 cc        MOV        dword ptr [EBP + local_38],0x0
+                 00 00 00 00
+        08049410 c7 45 c8        MOV        dword ptr [EBP + local_3c],0x0
+                 00 00 00 00
+        08049417 83 ec 0c        SUB        ESP,0xc
+        0804941a 6a 00           PUSH       0x0
+        0804941c e8 3f fc        CALL       <EXTERNAL>::time                                 time_t time(time_t * __timer)
+                 ff ff
+        08049421 83 c4 10        ADD        ESP,0x10
+        08049424 89 45 f4        MOV        dword ptr [EBP + local_10],EAX
+        08049427 83 ec 0c        SUB        ESP,0xc
+        0804942a 8d 45 c8        LEA        EAX=>local_3c,[EBP + -0x38]
+        0804942d 50              PUSH       EAX
+        0804942e e8 3d fc        CALL       <EXTERNAL>::mktime                               time_t mktime(tm * __tp)
+                 ff ff
+        08049433 83 c4 10        ADD        ESP,0x10
+        08049436 83 ec 08        SUB        ESP,0x8
+        08049439 50              PUSH       EAX
+        0804943a ff 75 f4        PUSH       dword ptr [EBP + local_10]
+        0804943d e8 5e fc        CALL       <EXTERNAL>::difftime                             double difftime(time_t __time1, 
+                 ff ff
+        08049442 83 c4 10        ADD        ESP,0x10
+        08049445 dd 05 e0        FLD        qword ptr [DAT_0804a0e0]
+                 a0 04 08
+        0804944b de f9           FDIVP
+        0804944d d9 7d c6        FNSTCW     word ptr [EBP + local_3e]
+        08049450 0f b7 45 c6     MOVZX      EAX,word ptr [EBP + local_3e]
+        08049454 80 cc 0c        OR         AH,0xc
+        08049457 66 89 45 c4     MOV        word ptr [EBP + local_40],AX
+        0804945b d9 6d c4        FLDCW      word ptr [EBP + local_40]
+        0804945e db 5d c0        FISTP      dword ptr [EBP + local_44]
+        08049461 d9 6d c6        FLDCW      word ptr [EBP + local_3e]
+        08049464 8b 45 c0        MOV        EAX,dword ptr [EBP + local_44]
+        08049467 c9              LEAVE
+        08049468 c3              RET
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined getOTP(undefined4 param_1, undefined4 param_2,
+             undefined         AL:1           <RETURN>
+             undefined4        Stack[0x4]:4   param_1                                 XREF[2]:     08049481(R), 
+                                                                                                   08049501(R)  
+             undefined4        Stack[0x8]:4   param_2                                 XREF[1]:     080494b0(R)  
+             undefined4        Stack[0xc]:4   param_3                                 XREF[2]:     080495b9(R), 
+                                                                                                   080495d3(R)  
+             undefined4        Stack[-0x8]:4  local_8                                 XREF[1]:     080495de(R)  
+             undefined4        Stack[-0x10]:4 local_10                                XREF[9]:     0804948f(W), 
+                                                                                                   080494a9(RW), 
+                                                                                                   080494ad(R), 
+                                                                                                   080494db(W), 
+                                                                                                   080494e7(R), 
+                                                                                                   080494f3(R), 
+                                                                                                   080495b6(R), 
+                                                                                                   080495c0(RW), 
+                                                                                                   080495c4(R)  
+             undefined4        Stack[-0x14]:4 local_14                                XREF[7]:     08049477(W), 
+                                                                                                   08049498(RW), 
+                                                                                                   0804949c(R), 
+                                                                                                   080494a2(W), 
+                                                                                                   080494b5(R), 
+                                                                                                   080494c1(R), 
+                                                                                                   080495db(R)  
+             undefined4        Stack[-0x18]:4 local_18                                XREF[1]:     08049470(W)  
+             undefined4        Stack[-0x1c]:4 local_1c                                XREF[4]:     0804948c(W), 
+                                                                                                   080494f0(R), 
+                                                                                                   080495c7(R), 
+                                                                                                   080495d0(R)  
+             undefined4        Stack[-0x20]:4 local_20                                XREF[4]:     080494bb(W), 
+                                                                                                   080494be(R), 
+                                                                                                   08049560(R), 
+                                                                                                   080495a6(R)  
+             undefined4        Stack[-0x24]:4 local_24                                XREF[3]:     080494cd(W), 
+                                                                                                   080494d5(R), 
+                                                                                                   080494f9(R)  
+             undefined4        Stack[-0x28]:4 local_28                                XREF[2]:     080494d8(W), 
+                                                                                                   080494ea(R)  
+             undefined1        Stack[-0x29]:1 local_29                                XREF[8]:     08049509(W), 
+                                                                                                   0804950c(R), 
+                                                                                                   08049521(W), 
+                                                                                                   08049524(R), 
+                                                                                                   08049541(R), 
+                                                                                                   08049568(R), 
+                                                                                                   08049585(R), 
+                                                                                                   080495b2(R)  
+                             getOTP                                          XREF[6]:     Entry Point(*), main:08049744(c), 
+                                                                                          main:080497a1(c), 
+                                                                                          main:080497cf(c), 0804a134, 
+                                                                                          0804a250(*)  
+        08049469 55              PUSH       EBP
+        0804946a 89 e5           MOV        EBP,ESP
+        0804946c 53              PUSH       EBX
+        0804946d 83 ec 24        SUB        ESP,0x24
+        08049470 c7 45 ec        MOV        dword ptr [EBP + local_18],0x1
+                 01 00 00 00
+        08049477 c7 45 f0        MOV        dword ptr [EBP + local_14],0x0
+                 00 00 00 00
+        0804947e 83 ec 0c        SUB        ESP,0xc
+        08049481 ff 75 08        PUSH       dword ptr [EBP + param_1]
+        08049484 e8 07 fc        CALL       <EXTERNAL>::strlen                               size_t strlen(char * __s)
+                 ff ff
+        08049489 83 c4 10        ADD        ESP,0x10
+        0804948c 89 45 e8        MOV        dword ptr [EBP + local_1c],EAX
+        0804948f c7 45 f4        MOV        dword ptr [EBP + local_10],0x0
+                 00 00 00 00
+        08049496 eb 15           JMP        LAB_080494ad
+                             LAB_08049498                                    XREF[1]:     080494b3(j)  
+        08049498 83 45 f0 01     ADD        dword ptr [EBP + local_14],0x1
+        0804949c 83 7d f0 02     CMP        dword ptr [EBP + local_14],0x2
+        080494a0 75 07           JNZ        LAB_080494a9
+        080494a2 c7 45 f0        MOV        dword ptr [EBP + local_14],0xffffffff
+                 ff ff ff ff
+                             LAB_080494a9                                    XREF[1]:     080494a0(j)  
+        080494a9 83 45 f4 01     ADD        dword ptr [EBP + local_10],0x1
+                             LAB_080494ad                                    XREF[1]:     08049496(j)  
+        080494ad 8b 45 f4        MOV        EAX,dword ptr [EBP + local_10]
+        080494b0 3b 45 0c        CMP        EAX,dword ptr [EBP + param_2]
+        080494b3 7c e3           JL         LAB_08049498
+        080494b5 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+        080494b8 0f af c0        IMUL       EAX,EAX
+        080494bb 89 45 e4        MOV        dword ptr [EBP + local_20],EAX
+        080494be 8b 45 e4        MOV        EAX,dword ptr [EBP + local_20]
+        080494c1 2b 45 f0        SUB        EAX,dword ptr [EBP + local_14]
+        080494c4 89 c2           MOV        EDX,EAX
+        080494c6 c1 ea 1f        SHR        EDX,0x1f
+        080494c9 01 d0           ADD        EAX,EDX
+        080494cb d1 f8           SAR        EAX,0x1
+        080494cd 89 45 e0        MOV        dword ptr [EBP + local_24],EAX
+        080494d0 b8 01 00        MOV        EAX,0x1
+                 00 00
+        080494d5 2b 45 e0        SUB        EAX,dword ptr [EBP + local_24]
+        080494d8 89 45 dc        MOV        dword ptr [EBP + local_28],EAX
+        080494db c7 45 f4        MOV        dword ptr [EBP + local_10],0x0
+                 00 00 00 00
+        080494e2 e9 dd 00        JMP        LAB_080495c4
+                 00 00
+                             LAB_080494e7                                    XREF[1]:     080495ca(j)  
+        080494e7 8b 45 f4        MOV        EAX,dword ptr [EBP + local_10]
+        080494ea 0f af 45 dc     IMUL       EAX,dword ptr [EBP + local_28]
+        080494ee 89 c2           MOV        EDX,EAX
+        080494f0 8b 45 e8        MOV        EAX,dword ptr [EBP + local_1c]
+        080494f3 2b 45 f4        SUB        EAX,dword ptr [EBP + local_10]
+        080494f6 83 e8 01        SUB        EAX,0x1
+        080494f9 0f af 45 e0     IMUL       EAX,dword ptr [EBP + local_24]
+        080494fd 01 d0           ADD        EAX,EDX
+        080494ff 89 c2           MOV        EDX,EAX
+        08049501 8b 45 08        MOV        EAX,dword ptr [EBP + param_1]
+        08049504 01 d0           ADD        EAX,EDX
+        08049506 0f b6 00        MOVZX      EAX,byte ptr [EAX]
+        08049509 88 45 db        MOV        byte ptr [EBP + local_29],AL
+        0804950c 0f b6 45 db     MOVZX      EAX,byte ptr [EBP + local_29]
+        08049510 83 ec 08        SUB        ESP,0x8
+        08049513 68 4c c0        PUSH       okC                                              = 7A30h
+                 04 08
+        08049518 50              PUSH       EAX
+        08049519 e8 eb fc        CALL       nrm                                              undefined nrm(undefined4 param_1
+                 ff ff
+        0804951e 83 c4 10        ADD        ESP,0x10
+        08049521 88 45 db        MOV        byte ptr [EBP + local_29],AL
+        08049524 0f b6 45 db     MOVZX      EAX,byte ptr [EBP + local_29]
+        08049528 83 ec 04        SUB        ESP,0x4
+        0804952b 68 50 c0        PUSH       okM                                              = 5A41h
+                 04 08
+        08049530 68 52 c0        PUSH       okm                                              = 7A61h
+                 04 08
+        08049535 50              PUSH       EAX
+        08049536 e8 23 fd        CALL       mv                                               undefined mv(undefined4 param_1,
+                 ff ff
+        0804953b 83 c4 10        ADD        ESP,0x10
+        0804953e 0f b6 d8        MOVZX      EBX,AL
+        08049541 0f b6 45 db     MOVZX      EAX,byte ptr [EBP + local_29]
+        08049545 83 ec 04        SUB        ESP,0x4
+        08049548 68 52 c0        PUSH       okm                                              = 7A61h
+                 04 08
+        0804954d 68 50 c0        PUSH       okM                                              = 5A41h
+                 04 08
+        08049552 50              PUSH       EAX
+        08049553 e8 06 fd        CALL       mv                                               undefined mv(undefined4 param_1,
+                 ff ff
+        08049558 83 c4 10        ADD        ESP,0x10
+        0804955b 0f b6 c0        MOVZX      EAX,AL
+        0804955e 01 d8           ADD        EAX,EBX
+        08049560 0f af 45 e4     IMUL       EAX,dword ptr [EBP + local_20]
+        08049564 85 c0           TEST       EAX,EAX
+        08049566 7e 4a           JLE        LAB_080495b2
+        08049568 0f b6 45 db     MOVZX      EAX,byte ptr [EBP + local_29]
+        0804956c 83 ec 04        SUB        ESP,0x4
+        0804956f 68 50 c0        PUSH       okM                                              = 5A41h
+                 04 08
+        08049574 68 52 c0        PUSH       okm                                              = 7A61h
+                 04 08
+        08049579 50              PUSH       EAX
+        0804957a e8 df fc        CALL       mv                                               undefined mv(undefined4 param_1,
+                 ff ff
+        0804957f 83 c4 10        ADD        ESP,0x10
+        08049582 0f b6 d8        MOVZX      EBX,AL
+        08049585 0f b6 45 db     MOVZX      EAX,byte ptr [EBP + local_29]
+        08049589 83 ec 04        SUB        ESP,0x4
+        0804958c 68 52 c0        PUSH       okm                                              = 7A61h
+                 04 08
+        08049591 68 50 c0        PUSH       okM                                              = 5A41h
+                 04 08
+        08049596 50              PUSH       EAX
+        08049597 e8 c2 fc        CALL       mv                                               undefined mv(undefined4 param_1,
+                 ff ff
+        0804959c 83 c4 10        ADD        ESP,0x10
+        0804959f 0f b6 c0        MOVZX      EAX,AL
+        080495a2 01 d8           ADD        EAX,EBX
+        080495a4 89 c1           MOV        ECX,EAX
+        080495a6 8b 45 e4        MOV        EAX,dword ptr [EBP + local_20]
+        080495a9 89 c2           MOV        EDX,EAX
+        080495ab 89 c8           MOV        EAX,ECX
+        080495ad 0f af c2        IMUL       EAX,EDX
+        080495b0 eb 04           JMP        LAB_080495b6
+                             LAB_080495b2                                    XREF[1]:     08049566(j)  
+        080495b2 0f b6 45 db     MOVZX      EAX,byte ptr [EBP + local_29]
+                             LAB_080495b6                                    XREF[1]:     080495b0(j)  
+        080495b6 8b 4d f4        MOV        ECX,dword ptr [EBP + local_10]
+        080495b9 8b 55 10        MOV        EDX,dword ptr [EBP + param_3]
+        080495bc 01 ca           ADD        EDX,ECX
+        080495be 88 02           MOV        byte ptr [EDX],AL
+        080495c0 83 45 f4 01     ADD        dword ptr [EBP + local_10],0x1
+                             LAB_080495c4                                    XREF[1]:     080494e2(j)  
+        080495c4 8b 45 f4        MOV        EAX,dword ptr [EBP + local_10]
+        080495c7 3b 45 e8        CMP        EAX,dword ptr [EBP + local_1c]
+        080495ca 0f 8c 17        JL         LAB_080494e7
+                 ff ff ff
+        080495d0 8b 55 e8        MOV        EDX,dword ptr [EBP + local_1c]
+        080495d3 8b 45 10        MOV        EAX,dword ptr [EBP + param_3]
+        080495d6 01 d0           ADD        EAX,EDX
+        080495d8 c6 00 00        MOV        byte ptr [EAX],0x0
+        080495db 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+        080495de 8b 5d fc        MOV        EBX,dword ptr [EBP + local_8]
+        080495e1 c9              LEAVE
+        080495e2 c3              RET
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined main(undefined1 param_1)
+             undefined         AL:1           <RETURN>                                XREF[2]:     08049693(W), 
+                                                                                                   080496a8(W)  
+             undefined1        Stack[0x4]:1   param_1                                 XREF[1]:     080495e3(*)  
+             undefined4        EAX:4          usernameLength                          XREF[2]:     08049693(W), 
+                                                                                                   080496a8(W)  
+             undefined4        EAX:4          passwordLength                          XREF[1]:     080496a8(W)  
+             undefined4        Stack[0x0]:4   local_res0                              XREF[2]:     080495ea(R), 
+                                                                                                   08049817(*)  
+             undefined1        Stack[-0x10]:1 local_10                                XREF[1]:     08049811(*)  
+             undefined4        Stack[-0x14]:4 i                                       XREF[10]:    080496b8(W), 
+                                                                                                   080496c4(R), 
+                                                                                                   080496eb(R), 
+                                                                                                   0804970f(RW), 
+                                                                                                   08049713(R), 
+                                                                                                   0804974c(W), 
+                                                                                                   08049758(R), 
+                                                                                                   08049763(R), 
+                                                                                                   08049773(RW), 
+                                                                                                   08049777(R)  
+             undefined4        Stack[-0x18]:4 local_18                                XREF[5]:     080495fa(W), 
+                                                                                                   08049631(R), 
+                                                                                                   0804973d(R), 
+                                                                                                   0804978f(R), 
+                                                                                                   080497bd(R)  
+             undefined4        Stack[-0x1c]:4 tempUsernameLength                      XREF[4]:     0804969b(W), 
+                                                                                                   0804969e(R), 
+                                                                                                   08049716(R), 
+                                                                                                   0804977a(R)  
+             undefined1[20]    Stack[-0x30]   username                                XREF[4]:     08049620(*), 
+                                                                                                   0804968f(*), 
+                                                                                                   080496c1(*), 
+                                                                                                   08049722(*)  
+             undefined1[20]    Stack[-0x44]   password                                XREF[4]:     0804967b(*), 
+                                                                                                   080496a4(*), 
+                                                                                                   080496e8(*), 
+                                                                                                   08049755(*)  
+             undefined1        Stack[-0x58]:1 local_58                                XREF[4]:     0804971e(*), 
+                                                                                                   08049740(*), 
+                                                                                                   0804979d(*), 
+                                                                                                   080497cb(*)  
+             undefined1        Stack[-0x6c]:1 local_6c                                XREF[6]:     08049739(*), 
+                                                                                                   08049760(*), 
+                                                                                                   08049798(*), 
+                                                                                                   080497ac(*), 
+                                                                                                   080497c6(*), 
+                                                                                                   080497da(*)  
+                             main                                            XREF[5]:     Entry Point(*), 
+                                                                                          _start:080490e0(*), 
+                                                                                          _start:080490e6(*), 0804a13c, 
+                                                                                          0804a274(*)  
+        080495e3 8d 4c 24 04     LEA        ECX=>param_1,[ESP + 0x4]
+        080495e7 83 e4 f0        AND        ESP,0xfffffff0
+        080495ea ff 71 fc        PUSH       dword ptr [ECX + local_res0]
+        080495ed 55              PUSH       EBP
+        080495ee 89 e5           MOV        EBP,ESP
+        080495f0 53              PUSH       EBX
+        080495f1 51              PUSH       ECX
+        080495f2 83 ec 60        SUB        ESP,0x60
+        080495f5 e8 f4 fd        CALL       getMode                                          undefined getMode()
+                 ff ff
+        080495fa 89 45 f0        MOV        dword ptr [EBP + local_18],EAX
+        080495fd 83 ec 0c        SUB        ESP,0xc
+        08049600 68 1c a0        PUSH       s_Welcome_to_GAPS,_please_Login_0804a01c         = "Welcome to GAPS, please Login"
+                 04 08
+        08049605 e8 76 fa        CALL       <EXTERNAL>::puts                                 int puts(char * __s)
+                 ff ff
+        0804960a 83 c4 10        ADD        ESP,0x10
+        0804960d 83 ec 0c        SUB        ESP,0xc
+        08049610 68 3c a0        PUSH       s_Enter_your_username_(a-z_low_cap_0804a03c      = "Enter your username (a-z low 
+                 04 08
+        08049615 e8 36 fa        CALL       <EXTERNAL>::printf                               int printf(char * __format, ...)
+                 ff ff
+        0804961a 83 c4 10        ADD        ESP,0x10
+        0804961d 83 ec 08        SUB        ESP,0x8
+        08049620 8d 45 d8        LEA        EAX=>username,[EBP + -0x28]
+        08049623 50              PUSH       EAX
+        08049624 68 61 a0        PUSH       DAT_0804a061                                     = 25h    %
+                 04 08
+        08049629 e8 82 fa        CALL       <EXTERNAL>::__isoc99_scanf                       undefined __isoc99_scanf()
+                 ff ff
+        0804962e 83 c4 10        ADD        ESP,0x10
+        08049631 8b 4d f0        MOV        ECX,dword ptr [EBP + local_18]
+        08049634 ba 56 55        MOV        EDX,0x55555556
+                 55 55
+        08049639 89 c8           MOV        EAX,ECX
+        0804963b f7 ea           IMUL       EDX
+        0804963d 89 cb           MOV        EBX,ECX
+        0804963f c1 fb 1f        SAR        EBX,0x1f
+        08049642 89 d0           MOV        EAX,EDX
+        08049644 29 d8           SUB        EAX,EBX
+        08049646 89 c2           MOV        EDX,EAX
+        08049648 01 d2           ADD        EDX,EDX
+        0804964a 01 c2           ADD        EDX,EAX
+        0804964c 89 c8           MOV        EAX,ECX
+        0804964e 29 d0           SUB        EAX,EDX
+        08049650 8b 04 85        MOV        EAX,dword ptr [EAX*0x4 + modes]
+                 40 c0 04 08
+        08049657 83 ec 08        SUB        ESP,0x8
+        0804965a 50              PUSH       EAX
+        0804965b 68 66 a0        PUSH       s_Applicable_mode_=_%s!_0804a066                 = "Applicable mode = %s!\n"
+                 04 08
+        08049660 e8 eb f9        CALL       <EXTERNAL>::printf                               int printf(char * __format, ...)
+                 ff ff
+        08049665 83 c4 10        ADD        ESP,0x10
+        08049668 83 ec 0c        SUB        ESP,0xc
+        0804966b 68 80 a0        PUSH       s_Enter_your_one-time_password:_0804a080         = "Enter your one-time password: "
+                 04 08
+        08049670 e8 db f9        CALL       <EXTERNAL>::printf                               int printf(char * __format, ...)
+                 ff ff
+        08049675 83 c4 10        ADD        ESP,0x10
+        08049678 83 ec 08        SUB        ESP,0x8
+        0804967b 8d 45 c4        LEA        EAX=>password,[EBP + -0x3c]
+        0804967e 50              PUSH       EAX
+        0804967f 68 61 a0        PUSH       DAT_0804a061                                     = 25h    %
+                 04 08
+        08049684 e8 27 fa        CALL       <EXTERNAL>::__isoc99_scanf                       undefined __isoc99_scanf()
+                 ff ff
+        08049689 83 c4 10        ADD        ESP,0x10
+        0804968c 83 ec 0c        SUB        ESP,0xc
+        0804968f 8d 45 d8        LEA        EAX=>username,[EBP + -0x28]
+        08049692 50              PUSH       EAX
+        08049693 e8 f8 f9        CALL       <EXTERNAL>::strlen                               size_t strlen(char * __s)
+                 ff ff
+        08049698 83 c4 10        ADD        ESP,0x10
+        0804969b 89 45 ec        MOV        dword ptr [EBP + tempUsernameLength],usernameL
+        0804969e 8b 5d ec        MOV        EBX,dword ptr [EBP + tempUsernameLength]
+        080496a1 83 ec 0c        SUB        ESP,0xc
+        080496a4 8d 45 c4        LEA        usernameLength=>password,[EBP + -0x3c]
+        080496a7 50              PUSH       usernameLength
+        080496a8 e8 e3 f9        CALL       <EXTERNAL>::strlen                               size_t strlen(char * __s)
+                 ff ff
+        080496ad 83 c4 10        ADD        ESP,0x10
+        080496b0 39 c3           CMP        EBX,passwordLength
+        080496b2 0f 85 3a        JNZ        LAB_080497f2
+                 01 00 00
+        080496b8 c7 45 f4        MOV        dword ptr [EBP + i],0x0
+                 00 00 00 00
+        080496bf eb 52           JMP        LAB_08049713
+                             LAB_080496c1                                    XREF[1]:     08049719(j)  
+        080496c1 8d 55 d8        LEA        EDX=>username,[EBP + -0x28]
+        080496c4 8b 45 f4        MOV        passwordLength,dword ptr [EBP + i]
+        080496c7 01 d0           ADD        passwordLength,EDX
+        080496c9 0f b6 00        MOVZX      passwordLength,byte ptr [passwordLength]
+        080496cc 0f b6 c0        MOVZX      passwordLength,passwordLength
+        080496cf 83 ec 08        SUB        ESP,0x8
+        080496d2 68 52 c0        PUSH       okm                                              = 7A61h
+                 04 08
+        080496d7 50              PUSH       passwordLength
+        080496d8 e8 f9 fa        CALL       out                                              undefined out(undefined4 param_1
+                 ff ff
+        080496dd 83 c4 10        ADD        ESP,0x10
+        080496e0 85 c0           TEST       passwordLength,passwordLength
+        080496e2 0f 85 0d        JNZ        LAB_080497f5
+                 01 00 00
+        080496e8 8d 55 c4        LEA        EDX=>password,[EBP + -0x3c]
+        080496eb 8b 45 f4        MOV        passwordLength,dword ptr [EBP + i]
+        080496ee 01 d0           ADD        passwordLength,EDX
+        080496f0 0f b6 00        MOVZX      passwordLength,byte ptr [passwordLength]
+        080496f3 0f b6 c0        MOVZX      passwordLength,passwordLength
+        080496f6 83 ec 08        SUB        ESP,0x8
+        080496f9 68 4c c0        PUSH       okC                                              = 7A30h
+                 04 08
+        080496fe 50              PUSH       passwordLength
+        080496ff e8 d2 fa        CALL       out                                              undefined out(undefined4 param_1
+                 ff ff
+        08049704 83 c4 10        ADD        ESP,0x10
+        08049707 85 c0           TEST       passwordLength,passwordLength
+        08049709 0f 85 e6        JNZ        LAB_080497f5
+                 00 00 00
+        0804970f 83 45 f4 01     ADD        dword ptr [EBP + i],0x1
+                             LAB_08049713                                    XREF[1]:     080496bf(j)  
+        08049713 8b 45 f4        MOV        passwordLength,dword ptr [EBP + i]
+        08049716 3b 45 ec        CMP        passwordLength,dword ptr [EBP + tempUsernameLe
+        08049719 7c a6           JL         LAB_080496c1
+        0804971b 83 ec 08        SUB        ESP,0x8
+        0804971e 8d 45 b0        LEA        passwordLength=>local_58,[EBP + -0x50]
+        08049721 50              PUSH       passwordLength
+        08049722 8d 45 d8        LEA        passwordLength=>username,[EBP + -0x28]
+        08049725 50              PUSH       passwordLength
+        08049726 e8 7c fb        CALL       getSecret                                        undefined getSecret(undefined4 p
+                 ff ff
+        0804972b 83 c4 10        ADD        ESP,0x10
+        0804972e 85 c0           TEST       passwordLength,passwordLength
+        08049730 0f 84 c2        JZ         LAB_080497f8
+                 00 00 00
+        08049736 83 ec 04        SUB        ESP,0x4
+        08049739 8d 45 9c        LEA        passwordLength=>local_6c,[EBP + -0x64]
+        0804973c 50              PUSH       passwordLength
+        0804973d ff 75 f0        PUSH       dword ptr [EBP + local_18]
+        08049740 8d 45 b0        LEA        passwordLength=>local_58,[EBP + -0x50]
+        08049743 50              PUSH       passwordLength
+        08049744 e8 20 fd        CALL       getOTP                                           undefined getOTP(undefined4 para
+                 ff ff
+        08049749 83 c4 10        ADD        ESP,0x10
+        0804974c c7 45 f4        MOV        dword ptr [EBP + i],0x0
+                 00 00 00 00
+        08049753 eb 22           JMP        LAB_08049777
+                             LAB_08049755                                    XREF[1]:     0804977d(j)  
+        08049755 8d 55 c4        LEA        EDX=>password,[EBP + -0x3c]
+        08049758 8b 45 f4        MOV        passwordLength,dword ptr [EBP + i]
+        0804975b 01 d0           ADD        passwordLength,EDX
+        0804975d 0f b6 10        MOVZX      EDX,byte ptr [passwordLength]
+        08049760 8d 4d 9c        LEA        ECX=>local_6c,[EBP + -0x64]
+        08049763 8b 45 f4        MOV        passwordLength,dword ptr [EBP + i]
+        08049766 01 c8           ADD        passwordLength,ECX
+        08049768 0f b6 00        MOVZX      passwordLength,byte ptr [passwordLength]
+        0804976b 38 c2           CMP        DL,passwordLength
+        0804976d 0f 85 88        JNZ        LAB_080497fb
+                 00 00 00
+        08049773 83 45 f4 01     ADD        dword ptr [EBP + i],0x1
+                             LAB_08049777                                    XREF[1]:     08049753(j)  
+        08049777 8b 45 f4        MOV        passwordLength,dword ptr [EBP + i]
+        0804977a 3b 45 ec        CMP        passwordLength,dword ptr [EBP + tempUsernameLe
+        0804977d 7c d6           JL         LAB_08049755
+        0804977f 83 ec 0c        SUB        ESP,0xc
+        08049782 68 9f a0        PUSH       s_Login_successful_0804a09f                      = "Login successful"
+                 04 08
+        08049787 e8 f4 f8        CALL       <EXTERNAL>::puts                                 int puts(char * __s)
+                 ff ff
+        0804978c 83 c4 10        ADD        ESP,0x10
+        0804978f 8b 45 f0        MOV        passwordLength,dword ptr [EBP + local_18]
+        08049792 8d 50 01        LEA        EDX,[passwordLength + 0x1]
+        08049795 83 ec 04        SUB        ESP,0x4
+        08049798 8d 45 9c        LEA        passwordLength=>local_6c,[EBP + -0x64]
+        0804979b 50              PUSH       passwordLength
+        0804979c 52              PUSH       EDX
+        0804979d 8d 45 b0        LEA        passwordLength=>local_58,[EBP + -0x50]
+        080497a0 50              PUSH       passwordLength
+        080497a1 e8 c3 fc        CALL       getOTP                                           undefined getOTP(undefined4 para
+                 ff ff
+        080497a6 83 c4 10        ADD        ESP,0x10
+        080497a9 83 ec 08        SUB        ESP,0x8
+        080497ac 8d 45 9c        LEA        passwordLength=>local_6c,[EBP + -0x64]
+        080497af 50              PUSH       passwordLength
+        080497b0 68 b0 a0        PUSH       s_Your_next_passwords_=_%s_,_0804a0b0            = "Your next passwords = %s , "
+                 04 08
+        080497b5 e8 96 f8        CALL       <EXTERNAL>::printf                               int printf(char * __format, ...)
+                 ff ff
+        080497ba 83 c4 10        ADD        ESP,0x10
+        080497bd 8b 45 f0        MOV        passwordLength,dword ptr [EBP + local_18]
+        080497c0 8d 50 02        LEA        EDX,[passwordLength + 0x2]
+        080497c3 83 ec 04        SUB        ESP,0x4
+        080497c6 8d 45 9c        LEA        passwordLength=>local_6c,[EBP + -0x64]
+        080497c9 50              PUSH       passwordLength
+        080497ca 52              PUSH       EDX
+        080497cb 8d 45 b0        LEA        passwordLength=>local_58,[EBP + -0x50]
+        080497ce 50              PUSH       passwordLength
+        080497cf e8 95 fc        CALL       getOTP                                           undefined getOTP(undefined4 para
+                 ff ff
+        080497d4 83 c4 10        ADD        ESP,0x10
+        080497d7 83 ec 08        SUB        ESP,0x8
+        080497da 8d 45 9c        LEA        passwordLength=>local_6c,[EBP + -0x64]
+        080497dd 50              PUSH       passwordLength
+        080497de 68 cc a0        PUSH       s_%s_;o)_0804a0cc                                = "%s ;o)\n"
+                 04 08
+        080497e3 e8 68 f8        CALL       <EXTERNAL>::printf                               int printf(char * __format, ...)
+                 ff ff
+        080497e8 83 c4 10        ADD        ESP,0x10
+        080497eb b8 00 00        MOV        passwordLength,0x0
+                 00 00
+        080497f0 eb 1f           JMP        LAB_08049811
+                             LAB_080497f2                                    XREF[1]:     080496b2(j)  
+        080497f2 90              NOP
+        080497f3 eb 07           JMP        LAB_080497fc
+                             LAB_080497f5                                    XREF[2]:     080496e2(j), 08049709(j)  
+        080497f5 90              NOP
+        080497f6 eb 04           JMP        LAB_080497fc
+                             LAB_080497f8                                    XREF[1]:     08049730(j)  
+        080497f8 90              NOP
+        080497f9 eb 01           JMP        LAB_080497fc
+                             LAB_080497fb                                    XREF[1]:     0804976d(j)  
+        080497fb 90              NOP
+                             LAB_080497fc                                    XREF[3]:     080497f3(j), 080497f6(j), 
+                                                                                          080497f9(j)  
+        080497fc 83 ec 0c        SUB        ESP,0xc
+        080497ff 68 d4 a0        PUSH       s_Wrong_login_0804a0d4                           = "Wrong login"
+                 04 08
+        08049804 e8 77 f8        CALL       <EXTERNAL>::puts                                 int puts(char * __s)
+                 ff ff
+        08049809 83 c4 10        ADD        ESP,0x10
+        0804980c b8 ff ff        MOV        passwordLength,0xffffffff
+                 ff ff
+                             LAB_08049811                                    XREF[1]:     080497f0(j)  
+        08049811 8d 65 f8        LEA        ESP=>local_10,[EBP + -0x8]
+        08049814 59              POP        ECX
+        08049815 5b              POP        EBX
+        08049816 5d              POP        EBP
+        08049817 8d 61 fc        LEA        ESP=>local_res0,[ECX + -0x4]
+        0804981a c3              RET
+                             //
+                             // .fini 
+                             // SHT_PROGBITS  [0x804981c - 0x8049833]
+                             // ram:0804981c-ram:08049833
+                             //
+                             **************************************************************
+                             *                          FUNCTION                          *
+                             **************************************************************
+                             undefined _fini()
+             undefined         AL:1           <RETURN>
+                             __DT_FINI                                       XREF[3]:     Entry Point(*), 0804bf28(*), 
+                             _fini                                                        _elfSectionHeaders::0000023c(*)  
+        0804981c f3 0f 1e fb     ENDBR32
+        08049820 53              PUSH       EBX
+        08049821 83 ec 08        SUB        ESP,0x8
+        08049824 e8 e7 f8        CALL       __x86.get_pc_thunk.bx                            undefined __x86.get_pc_thunk.bx()
+                 ff ff
+        08049829 81 c3 d7        ADD        EBX,0x27d7
+                 27 00 00
+        0804982f 83 c4 08        ADD        ESP,0x8
+        08049832 5b              POP        EBX
+        08049833 c3              RET
+                             //
+                             // .rodata 
+                             // SHT_PROGBITS  [0x804a000 - 0x804a0e7]
+                             // ram:0804a000-ram:0804a0e7
+                             //
+                             _fp_hw                                          XREF[3]:     Entry Point(*), 080480bc(*), 
+                                                                                          _elfSectionHeaders::00000264(*)  
+        0804a000 03 00 00 00     undefined4 00000003h
+                             _IO_stdin_used                                  XREF[1]:     Entry Point(*)  
+        0804a004 01 00 02 00     undefined4 00020001h
+        0804a008 73 69 6d        ds         "simple"
+                 70 6c 65 00
+        0804a00f 63 61 70        ds         "capit"
+                 69 74 00
+        0804a015 63 61 70        ds         "caprev"
+                 72 65 76 00
+                             s_Welcome_to_GAPS,_please_Login_0804a01c        XREF[1]:     main:08049600(*)  
+        0804a01c 57 65 6c        ds         "Welcome to GAPS, please Login"
+                 63 6f 6d 
+                 65 20 74 
+        0804a03a 00              ??         00h
+        0804a03b 00              ??         00h
+                             s_Enter_your_username_(a-z_low_cap_0804a03c     XREF[1]:     main:08049610(*)  
+        0804a03c 45 6e 74        ds         "Enter your username (a-z low caps): "
+                 65 72 20 
+                 79 6f 75 
+                             DAT_0804a061                                    XREF[2]:     main:08049624(*), 
+                                                                                          main:0804967f(*)  
+        0804a061 25              ??         25h    %
+        0804a062 31              ??         31h    1
+        0804a063 39              ??         39h    9
+        0804a064 73              ??         73h    s
+        0804a065 00              ??         00h
+                             s_Applicable_mode_=_%s!_0804a066                XREF[1]:     main:0804965b(*)  
+        0804a066 41 70 70        ds         "Applicable mode = %s!\n"
+                 6c 69 63 
+                 61 62 6c 
+        0804a07d 00              ??         00h
+        0804a07e 00              ??         00h
+        0804a07f 00              ??         00h
+                             s_Enter_your_one-time_password:_0804a080        XREF[1]:     main:0804966b(*)  
+        0804a080 45 6e 74        ds         "Enter your one-time password: "
+                 65 72 20 
+                 79 6f 75 
+                             s_Login_successful_0804a09f                     XREF[1]:     main:08049782(*)  
+        0804a09f 4c 6f 67        ds         "Login successful"
+                 69 6e 20 
+                 73 75 63 
+                             s_Your_next_passwords_=_%s_,_0804a0b0           XREF[1]:     main:080497b0(*)  
+        0804a0b0 59 6f 75        ds         "Your next passwords = %s , "
+                 72 20 6e 
+                 65 78 74 
+                             s_%s_;o)_0804a0cc                               XREF[1]:     main:080497de(*)  
+        0804a0cc 25 73 20        ds         "%s ;o)\n"
+                 3b 6f 29 
+                 0a 00
+                             s_Wrong_login_0804a0d4                          XREF[1]:     main:080497ff(*)  
+        0804a0d4 57 72 6f        ds         "Wrong login"
+                 6e 67 20 
+                 6c 6f 67 
+                             DAT_0804a0e0                                    XREF[1]:     getMode:08049445(R)  
+        0804a0e0 00              ??         00h
+        0804a0e1 00              ??         00h
+        0804a0e2 00              ??         00h
+        0804a0e3 00              ??         00h
+        0804a0e4 00              ??         00h
+        0804a0e5 00              ??         00h
+        0804a0e6 4e              ??         4Eh    N
+        0804a0e7 40              ??         40h    @
+                             //
+                             // .eh_frame_hdr 
+                             // SHT_PROGBITS  [0x804a0e8 - 0x804a143]
+                             // ram:0804a0e8-ram:0804a143
+                             //
+                             **************************************************************
+                             * Exception Handler Frame Header                             *
+                             **************************************************************
+                             __GNU_EH_FRAME_HDR                              XREF[2]:     0804813c(*), 
+                                                                                          _elfSectionHeaders::0000028c(*)  
+        0804a0e8 01 1b 03 3b     eh_frame                                                    Exception Handler Frame Header V
+        0804a0ec 58 00 00 00     ddw        cie_0804a144                                     Encoded eh_frame_ptr
+        0804a0f0 0a 00 00 00     ddw        Ah                                               Encoded FDE count
+                             **************************************************************
+                             * Frame Description Entry Table                              *
+                             **************************************************************
+        0804a0f4 48 ef ff        fde_tabl                                                    Initial Location
+                 ff 9c 00 
+                 00 00
+        0804a0fc d8 ef ff        fde_tabl                                                    Initial Location
+                 ff 74 00 
+                 00 00
+        0804a104 18 f0 ff        fde_tabl                                                    Initial Location
+                 ff 88 00 
+                 00 00
+        0804a10c ee f0 ff        fde_tabl                                                    Initial Location
+                 ff c0 00 
+                 00 00
+        0804a114 21 f1 ff        fde_tabl                                                    Initial Location
+                 ff e0 00 
+                 00 00
+        0804a11c 76 f1 ff        fde_tabl                                                    Initial Location
+                 ff 00 01 
+                 00 00
+        0804a124 bf f1 ff        fde_tabl                                                    Initial Location
+                 ff 20 01 
+                 00 00
+        0804a12c 06 f3 ff        fde_tabl                                                    Initial Location
+                 ff 40 01 
+                 00 00
+        0804a134 81 f3 ff        fde_tabl                                                    Initial Location
+                 ff 60 01 
+                 00 00
+        0804a13c fb f4 ff        fde_tabl                                                    Initial Location
+                 ff 84 01 
+                 00 00
+                             //
+                             // .eh_frame 
+                             // SHT_PROGBITS  [0x804a144 - 0x804a2a7]
+                             // ram:0804a144-ram:0804a2a7
+                             //
+                             **************************************************************
+                             * Common Information Entry                                   *
+                             **************************************************************
+                             cie_0804a144                                    XREF[12]:    0804a0ec(*), 0804a160(*), 
+                                                                                          0804a174(*), 0804a188(*), 
+                                                                                          0804a1ac(*), 0804a1cc(*), 
+                                                                                          0804a1ec(*), 0804a20c(*), 
+                                                                                          0804a22c(*), 0804a24c(*), 
+                                                                                          0804a270(*), 
+                                                                                          _elfSectionHeaders::000002b4(*)  
+        0804a144 14 00 00 00     ddw        14h                                              (CIE) Length
+        0804a148 00 00 00 00     ddw        0h                                               (CIE) ID
+        0804a14c 01              db         1h                                               (CIE) Version
+        0804a14d 7a 52 00        ds         "zR"                                             (CIE) Augmentation String
+        0804a150 01              uleb128    1h                                               (CIE) Code Alignment
+        0804a151 7c              sleb128    -4h                                              (CIE) Data Alignment
+        0804a152 08              db         8h                                               (CIE) Return Address Register Co
+        0804a153 01              uleb128    1h                                               (CIE) Augmentation Data Length
+        0804a154 1b              dwfenc     DW_EH_PE_sdata4 | DW_EH_PE_pcrel                 (CIE Augmentation Data) FDE Enco
+        0804a155 0c 04 04        db[7]                                                       (CIE) Initial Instructions
+                 88 01 00 00
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a15c                                    XREF[1]:     0804a100(*)  
+        0804a15c 10 00 00 00     ddw        10h                                              (FDE) Length
+        0804a160 1c 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a164 5c ef ff ff     ddw        _start                                           (FDE) PcBegin
+        0804a168 31 00 00 00     ddw        31h                                              (FDE) PcRange
+        0804a16c 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a16d 44 07 08        db[3]                                                       (FDE) Call Frame Instructions
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a170                                    XREF[1]:     0804a108(*)  
+        0804a170 10 00 00 00     ddw        10h                                              (FDE) Length
+        0804a174 30 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a178 88 ef ff ff     ddw        _dl_relocate_static_pie                          (FDE) PcBegin
+        0804a17c 05 00 00 00     ddw        5h                                               (FDE) PcRange
+        0804a180 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a181 00 00 00        db[3]                                                       (FDE) Call Frame Instructions
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a184                                    XREF[1]:     0804a0f8(*)  
+        0804a184 20 00 00 00     ddw        20h                                              (FDE) Length
+        0804a188 44 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a18c a4 ee ff ff     ddw        FUN_08049030                                     (FDE) PcBegin
+        0804a190 90 00 00 00     ddw        90h                                              (FDE) PcRange
+        0804a194 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a195 0e 08 46        db[19]                                                      (FDE) Call Frame Instructions
+                 0e 0c 4a 
+                 0f 0b 74 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a1a8                                    XREF[1]:     0804a110(*)  
+        0804a1a8 1c 00 00 00     ddw        1Ch                                              (FDE) Length
+        0804a1ac 68 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a1b0 26 f0 ff ff     ddw        out                                              (FDE) PcBegin
+        0804a1b4 33 00 00 00     ddw        33h                                              (FDE) PcRange
+        0804a1b8 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a1b9 41 0e 08        db[15]                                                      (FDE) Call Frame Instructions
+                 85 02 42 
+                 0d 05 6f 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a1c8                                    XREF[1]:     0804a118(*)  
+        0804a1c8 1c 00 00 00     ddw        1Ch                                              (FDE) Length
+        0804a1cc 88 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a1d0 39 f0 ff ff     ddw        nrm                                              (FDE) PcBegin
+        0804a1d4 55 00 00 00     ddw        55h                                              (FDE) PcRange
+        0804a1d8 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a1d9 41 0e 08        db[15]                                                      (FDE) Call Frame Instructions
+                 85 02 42 
+                 0d 05 02 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a1e8                                    XREF[1]:     0804a120(*)  
+        0804a1e8 1c 00 00 00     ddw        1Ch                                              (FDE) Length
+        0804a1ec a8 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a1f0 6e f0 ff ff     ddw        mv                                               (FDE) PcBegin
+        0804a1f4 49 00 00 00     ddw        49h                                              (FDE) PcRange
+        0804a1f8 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a1f9 41 0e 08        db[15]                                                      (FDE) Call Frame Instructions
+                 85 02 42 
+                 0d 05 02 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a208                                    XREF[1]:     0804a128(*)  
+        0804a208 1c 00 00 00     ddw        1Ch                                              (FDE) Length
+        0804a20c c8 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a210 97 f0 ff ff     ddw        getSecret                                        (FDE) PcBegin
+        0804a214 47 01 00 00     ddw        147h                                             (FDE) PcRange
+        0804a218 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a219 41 0e 08        db[15]                                                      (FDE) Call Frame Instructions
+                 85 02 42 
+                 0d 05 03 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a228                                    XREF[1]:     0804a130(*)  
+        0804a228 1c 00 00 00     ddw        1Ch                                              (FDE) Length
+        0804a22c e8 00 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a230 be f1 ff ff     ddw        getMode                                          (FDE) PcBegin
+        0804a234 7b 00 00 00     ddw        7Bh                                              (FDE) PcRange
+        0804a238 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a239 41 0e 08        db[15]                                                      (FDE) Call Frame Instructions
+                 85 02 42 
+                 0d 05 02 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a248                                    XREF[1]:     0804a138(*)  
+        0804a248 20 00 00 00     ddw        20h                                              (FDE) Length
+        0804a24c 08 01 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a250 19 f2 ff ff     ddw        getOTP                                           (FDE) PcBegin
+        0804a254 7a 01 00 00     ddw        17Ah                                             (FDE) PcRange
+        0804a258 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a259 41 0e 08        db[19]                                                      (FDE) Call Frame Instructions
+                 85 02 42 
+                 0d 05 44 
+                             **************************************************************
+                             * Frame Descriptor Entry                                     *
+                             **************************************************************
+                             fde_0804a26c                                    XREF[1]:     0804a140(*)  
+        0804a26c 34 00 00 00     ddw        34h                                              (FDE) Length
+        0804a270 2c 01 00 00     ddw        cie_0804a144                                     (FDE) CIE Reference Pointer 
+        0804a274 6f f3 ff ff     ddw        main                                             (FDE) PcBegin
+        0804a278 38 02 00 00     ddw        238h                                             (FDE) PcRange
+        0804a27c 00              uleb128    0h                                               (FDE) Augmentation Data Length
+        0804a27d 44 0c 01        db[39]                                                      (FDE) Call Frame Instructions
+                 00 49 10 
+                 05 02 75 
+                             **************************************************************
+                             * END OF FRAME                                               *
+                             **************************************************************
+                             __FRAME_END__
+        0804a2a4 00 00 00 00     ddw        0h                                               End of Frame
+                             //
+                             // .init_array 
+                             // SHT_INIT_ARRAY  [0x804bf0c - 0x804bf0f]
+                             // ram:0804bf0c-ram:0804bf0f
+                             //
+                             __DT_INIT_ARRAY                                 XREF[4]:     080480dc(*), 0804817c(*), 
+                             __frame_dummy_init_array_entry                               0804bf30(*), 
+                                                                                          _elfSectionHeaders::000002dc(*)  
+        0804bf0c d0 91 04 08     addr       frame_dummy
+                             //
+                             // .fini_array 
+                             // SHT_FINI_ARRAY  [0x804bf10 - 0x804bf13]
+                             // ram:0804bf10-ram:0804bf13
+                             //
+                             __DT_FINI_ARRAY                                 XREF[2]:     0804bf40(*), 
+                             __do_global_dtors_aux_fini_array_entry                       _elfSectionHeaders::00000304(*)  
+        0804bf10 a0 91 04 08     addr       __do_global_dtors_aux
+                             //
+                             // .dynamic 
+                             // SHT_DYNAMIC  [0x804bf14 - 0x804bffb]
+                             // ram:0804bf14-ram:0804bffb
+                             //
+                             _DYNAMIC                                        XREF[3]:     080480fc(*), 0804c000(*), 
+                                                                                          _elfSectionHeaders::0000032c(*)  
+        0804bf14 01 00 00        Elf32_Dy                                                    DT_NEEDED - Name of needed library
+                 00 54 00 
+                 00 00 0c 
+        0804bfd4 00              ??         00h
+        0804bfd5 00              ??         00h
+        0804bfd6 00              ??         00h
+        0804bfd7 00              ??         00h
+        0804bfd8 00              ??         00h
+        0804bfd9 00              ??         00h
+        0804bfda 00              ??         00h
+        0804bfdb 00              ??         00h
+        0804bfdc 00              ??         00h
+        0804bfdd 00              ??         00h
+        0804bfde 00              ??         00h
+        0804bfdf 00              ??         00h
+        0804bfe0 00              ??         00h
+        0804bfe1 00              ??         00h
+        0804bfe2 00              ??         00h
+        0804bfe3 00              ??         00h
+        0804bfe4 00              ??         00h
+        0804bfe5 00              ??         00h
+        0804bfe6 00              ??         00h
+        0804bfe7 00              ??         00h
+        0804bfe8 00              ??         00h
+        0804bfe9 00              ??         00h
+        0804bfea 00              ??         00h
+        0804bfeb 00              ??         00h
+        0804bfec 00              ??         00h
+        0804bfed 00              ??         00h
+        0804bfee 00              ??         00h
+        0804bfef 00              ??         00h
+        0804bff0 00              ??         00h
+        0804bff1 00              ??         00h
+        0804bff2 00              ??         00h
+        0804bff3 00              ??         00h
+        0804bff4 00              ??         00h
+        0804bff5 00              ??         00h
+        0804bff6 00              ??         00h
+        0804bff7 00              ??         00h
+        0804bff8 00              ??         00h
+        0804bff9 00              ??         00h
+        0804bffa 00              ??         00h
+        0804bffb 00              ??         00h
+                             //
+                             // .got 
+                             // SHT_PROGBITS  [0x804bffc - 0x804bfff]
+                             // ram:0804bffc-ram:0804bfff
+                             //
+                             PTR___gmon_start___0804bffc                     XREF[2]:     _init:08049013(R), 
+                                                                                          _elfSectionHeaders::00000354(*)  
+        0804bffc 14 d0 04 08     addr       <EXTERNAL>::__gmon_start__                       = ??
+                             //
+                             // .got.plt 
+                             // SHT_PROGBITS  [0x804c000 - 0x804c02b]
+                             // ram:0804c000-ram:0804c02b
+                             //
+                             __DT_PLTGOT                                     XREF[2]:     0804bf80(*), 
+                             _GLOBAL_OFFSET_TABLE_                                        _elfSectionHeaders::0000037c(*)  
+        0804c000 14 bf 04 08     addr       _DYNAMIC
+                             PTR_0804c004                                    XREF[1]:     FUN_08049030:08049030(R)  
+        0804c004 00 00 00 00     addr       00000000
+                             PTR_0804c008                                    XREF[1]:     FUN_08049030:08049036  
+        0804c008 00 00 00 00     addr       00000000
+                             PTR___libc_start_main_0804c00c                  XREF[1]:     __libc_start_main:08049040  
+        0804c00c 00 d0 04 08     addr       <EXTERNAL>::__libc_start_main                    = ??
+                             PTR_printf_0804c010                             XREF[1]:     printf:08049050  
+        0804c010 04 d0 04 08     addr       <EXTERNAL>::printf                               = ??
+                             PTR_time_0804c014                               XREF[1]:     time:08049060  
+        0804c014 08 d0 04 08     addr       <EXTERNAL>::time                                 = ??
+                             PTR_mktime_0804c018                             XREF[1]:     mktime:08049070  
+        0804c018 0c d0 04 08     addr       <EXTERNAL>::mktime                               = ??
+                             PTR_puts_0804c01c                               XREF[1]:     puts:08049080  
+        0804c01c 10 d0 04 08     addr       <EXTERNAL>::puts                                 = ??
+                             PTR_strlen_0804c020                             XREF[1]:     strlen:08049090  
+        0804c020 18 d0 04 08     addr       <EXTERNAL>::strlen                               = ??
+                             PTR_difftime_0804c024                           XREF[1]:     difftime:080490a0  
+        0804c024 1c d0 04 08     addr       <EXTERNAL>::difftime                             = ??
+                             DAT_0804c028                                    XREF[1]:     __isoc99_scanf:080490b0  
+        0804c028 20              ??         20h                                              ?  ->  0804d020
+        0804c029 d0              ??         D0h
+        0804c02a 04              ??         04h
+        0804c02b 08              ??         08h
+                             //
+                             // .data 
+                             // SHT_PROGBITS  [0x804c02c - 0x804c057]
+                             // ram:0804c02c-ram:0804c057
+                             //
+                             __data_start                                    XREF[2]:     Entry Point(*), 
+                             data_start                                                   _elfSectionHeaders::000003a4(*)  
+        0804c02c 00              ??         00h
+        0804c02d 00              ??         00h
+        0804c02e 00              ??         00h
+        0804c02f 00              ??         00h
+                             __dso_handle                                    XREF[1]:     Entry Point(*)  
+        0804c030 00              ??         00h
+        0804c031 00              ??         00h
+        0804c032 00              ??         00h
+        0804c033 00              ??         00h
+                             masterKey                                       XREF[2]:     getSecret:080492c8(*), 
+                                                                                          getSecret:0804938e(*)  
+        0804c034 6d 61 73        ds         "masterKey"
+                 74 65 72 
+                 4b 65 79 
+                             modes                                           XREF[1]:     main:08049650(*)  
+        0804c040 08 a0 04        undefine
+                 08 0f a0 
+                 04 08 15 
+                             okC                                             XREF[3]:     getSecret:080493a1(*), 
+                                                                                          getOTP:08049513(*), 
+                                                                                          main:080496f9(*)  
+        0804c04c 30 7a           undefined2 7A30h
+                             okn
+        0804c04e 30 39           undefined2 3930h
+                             okM                                             XREF[4]:     getOTP:0804952b(*), 
+                                                                                          getOTP:0804954d(*), 
+                                                                                          getOTP:0804956f(*), 
+                                                                                          getOTP:08049591(*)  
+        0804c050 41 5a           undefined2 5A41h
+                             okm                                             XREF[5]:     getOTP:08049530(*), 
+                                                                                          getOTP:08049548(*), 
+                                                                                          getOTP:08049574(*), 
+                                                                                          getOTP:0804958c(*), 
+                                                                                          main:080496d2(*)  
+        0804c052 61 7a           undefined2 7A61h
+                             NL                                              XREF[1]:     getSecret:080493db(R)  
+        0804c054 64 00 00 00     undefined4 00000064h
+                             //
+                             // .bss 
+                             // SHT_NOBITS  [0x804c058 - 0x804c05b]
+                             // ram:0804c058-ram:0804c05b
+                             //
+                             _edata                                          XREF[10]:    Entry Point(*), 
+                             __bss_start                                                  deregister_tm_clones:08049120(*), 
+                             __TMC_END__                                                  deregister_tm_clones:08049125(*), 
+                             completed.0                                                  deregister_tm_clones:0804913b(*), 
+                                                                                          register_tm_clones:08049160(*), 
+                                                                                          register_tm_clones:08049165(*), 
+                                                                                          register_tm_clones:08049188(*), 
+                                                                                          __do_global_dtors_aux:080491a4(R
+                                                                                          __do_global_dtors_aux:080491b8(W
+                                                                                          _elfSectionHeaders::000003cc(*)  
+        0804c058                 undefined1 ??
+        0804c059                 ??         ??
+        0804c05a                 ??         ??
+        0804c05b                 ??         ??
+                             //
+                             // EXTERNAL 
+                             // NOTE: This block is artificial and allows ELF Relocations 
+                             // ram:0804d000-ram:0804d023
+                             //
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk undefined __libc_start_main()
+                               Thunked-Function: <EXTERNAL>::__libc_star
+             undefined         AL:1           <RETURN>
+                             __libc_start_main@GLIBC_2.34
+                             <EXTERNAL>::__libc_start_main                   XREF[2]:     __libc_start_main:08049040(T), 
+                                                                                          __libc_start_main:08049040(c), 
+                                                                                          0804c00c(*)  
+        0804d000                 ??         ??
+        0804d001                 ??         ??
+        0804d002                 ??         ??
+        0804d003                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk int printf(char * __format, ...)
+                               Thunked-Function: <EXTERNAL>::printf
+             int               EAX:4          <RETURN>
+             char *            Stack[0x4]:4   __format
+                             printf@GLIBC_2.0
+                             <EXTERNAL>::printf                              XREF[2]:     printf:08049050(T), 
+                                                                                          printf:08049050(c), 0804c010(*)  
+        0804d004                 ??         ??
+        0804d005                 ??         ??
+        0804d006                 ??         ??
+        0804d007                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk time_t time(time_t * __timer)
+                               Thunked-Function: <EXTERNAL>::time
+             time_t            EAX:4          <RETURN>
+             time_t *          Stack[0x4]:4   __timer
+                             time@GLIBC_2.0
+                             <EXTERNAL>::time                                XREF[2]:     time:08049060(T), 
+                                                                                          time:08049060(c), 0804c014(*)  
+        0804d008                 ??         ??
+        0804d009                 ??         ??
+        0804d00a                 ??         ??
+        0804d00b                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk time_t mktime(tm * __tp)
+                               Thunked-Function: <EXTERNAL>::mktime
+             time_t            EAX:4          <RETURN>
+             tm *              Stack[0x4]:4   __tp
+                             mktime@GLIBC_2.0
+                             <EXTERNAL>::mktime                              XREF[2]:     mktime:08049070(T), 
+                                                                                          mktime:08049070(c), 0804c018(*)  
+        0804d00c                 ??         ??
+        0804d00d                 ??         ??
+        0804d00e                 ??         ??
+        0804d00f                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk int puts(char * __s)
+                               Thunked-Function: <EXTERNAL>::puts
+             int               EAX:4          <RETURN>
+             char *            Stack[0x4]:4   __s
+                             puts@GLIBC_2.0
+                             <EXTERNAL>::puts                                XREF[2]:     puts:08049080(T), 
+                                                                                          puts:08049080(c), 0804c01c(*)  
+        0804d010                 ??         ??
+        0804d011                 ??         ??
+        0804d012                 ??         ??
+        0804d013                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk undefined __gmon_start__()
+                               Thunked-Function: <EXTERNAL>::__gmon_star
+             undefined         AL:1           <RETURN>
+                             <EXTERNAL>::__gmon_start__                      XREF[3]:     _init:08049013(*), 
+                                                                                          _init:0804901d(c), 0804bffc(*)  
+        0804d014                 ??         ??
+        0804d015                 ??         ??
+        0804d016                 ??         ??
+        0804d017                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk size_t strlen(char * __s)
+                               Thunked-Function: <EXTERNAL>::strlen
+             size_t            EAX:4          <RETURN>
+             char *            Stack[0x4]:4   __s
+                             strlen@GLIBC_2.0
+                             <EXTERNAL>::strlen                              XREF[2]:     strlen:08049090(T), 
+                                                                                          strlen:08049090(c), 0804c020(*)  
+        0804d018                 ??         ??
+        0804d019                 ??         ??
+        0804d01a                 ??         ??
+        0804d01b                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk double difftime(time_t __time1, time_t __time0)
+                               Thunked-Function: <EXTERNAL>::difftime
+             double            ST0:10         <RETURN>
+             time_t            Stack[0x4]:4   __time1
+             time_t            Stack[0x8]:4   __time0
+                             difftime@GLIBC_2.0
+                             <EXTERNAL>::difftime                            XREF[2]:     difftime:080490a0(T), 
+                                                                                          difftime:080490a0(c), 
+                                                                                          0804c024(*)  
+        0804d01c                 ??         ??
+        0804d01d                 ??         ??
+        0804d01e                 ??         ??
+        0804d01f                 ??         ??
+                             **************************************************************
+                             *                       THUNK FUNCTION                       *
+                             **************************************************************
+                             thunk undefined __isoc99_scanf()
+                               Thunked-Function: <EXTERNAL>::__isoc99_sc
+             undefined         AL:1           <RETURN>
+                             __isoc99_scanf@GLIBC_2.7
+                             <EXTERNAL>::__isoc99_scanf                      XREF[1]:     __isoc99_scanf:080490b0(T), 
+                                                                                          __isoc99_scanf:080490b0(c)  
+        0804d020                 ??         ??
+        0804d021                 ??         ??
+        0804d022                 ??         ??
+        0804d023                 ??         ??
+                             //
+                             // .comment 
+                             // SHT_PROGBITS [not-loaded]
+                             // .comment::00000000-.comment::00000025
+                             //
+             assume DF = <UNKNOWN>
+                             ElfComment[0]                                   XREF[1]:     _elfSectionHeaders::000003f4(*)  
+     t::00000000 47 43 43        utf8       u8"GCC: (Ubuntu 11.2.0-19ubuntu1) 11.2.0"
+                 3a 20 28 
+                 55 62 75 
+                             //
+                             // .shstrtab 
+                             // SHT_STRTAB [not-loaded]
+                             // .shstrtab::00000000-.shstrtab::00000100
+                             //
+                             DAT_.shstrtab__00000000                         XREF[1]:     _elfSectionHeaders::0000046c(*)  
+     b::00000000 00              ??         00h
+     b::00000001 2e 73 79        utf8       u8".symtab"
+                 6d 74 61 
+                 62 00
+     b::00000009 2e 73 74        utf8       u8".strtab"
+                 72 74 61 
+                 62 00
+     b::00000011 2e 73 68        utf8       u8".shstrtab"
+                 73 74 72 
+                 74 61 62 00
+     b::0000001b 2e 69 6e        utf8       u8".interp"
+                 74 65 72 
+                 70 00
+     b::00000023 2e 6e 6f        utf8       u8".note.gnu.build-id"
+                 74 65 2e 
+                 67 6e 75 
+     b::00000036 2e 6e 6f        utf8       u8".note.ABI-tag"
+                 74 65 2e 
+                 41 42 49 
+     b::00000044 2e 67 6e        utf8       u8".gnu.hash"
+                 75 2e 68 
+                 61 73 68 00
+     b::0000004e 2e 64 79        utf8       u8".dynsym"
+                 6e 73 79 
+                 6d 00
+     b::00000056 2e 64 79        utf8       u8".dynstr"
+                 6e 73 74 
+                 72 00
+     b::0000005e 2e 67 6e        utf8       u8".gnu.version"
+                 75 2e 76 
+                 65 72 73 
+     b::0000006b 2e 67 6e        utf8       u8".gnu.version_r"
+                 75 2e 76 
+                 65 72 73 
+     b::0000007a 2e 72 65        utf8       u8".rel.dyn"
+                 6c 2e 64 
+                 79 6e 00
+     b::00000083 2e 72 65        utf8       u8".rel.plt"
+                 6c 2e 70 
+                 6c 74 00
+     b::0000008c 2e 69 6e        utf8       u8".init"
+                 69 74 00
+     b::00000092 2e 74 65        utf8       u8".text"
+                 78 74 00
+     b::00000098 2e 66 69        utf8       u8".fini"
+                 6e 69 00
+     b::0000009e 2e 72 6f        utf8       u8".rodata"
+                 64 61 74 
+                 61 00
+     b::000000a6 2e 65 68        utf8       u8".eh_frame_hdr"
+                 5f 66 72 
+                 61 6d 65 
+     b::000000b4 2e 65 68        utf8       u8".eh_frame"
+                 5f 66 72 
+                 61 6d 65 00
+     b::000000be 2e 69 6e        utf8       u8".init_array"
+                 69 74 5f 
+                 61 72 72 
+     b::000000ca 2e 66 69        utf8       u8".fini_array"
+                 6e 69 5f 
+                 61 72 72 
+     b::000000d6 2e 64 79        utf8       u8".dynamic"
+                 6e 61 6d 
+                 69 63 00
+     b::000000df 2e 67 6f        utf8       u8".got"
+                 74 00
+     b::000000e4 2e 67 6f        utf8       u8".got.plt"
+                 74 2e 70 
+                 6c 74 00
+     b::000000ed 2e 64 61        utf8       u8".data"
+                 74 61 00
+     b::000000f3 2e 62 73        utf8       u8".bss"
+                 73 00
+     b::000000f8 2e 63 6f        utf8       u8".comment"
+                 6d 6d 65 
+                 6e 74 00
+                             //
+                             // .strtab 
+                             // SHT_STRTAB [not-loaded]
+                             // .strtab::00000000-.strtab::0000025f
+                             //
+                             DAT_.strtab__00000000                           XREF[1]:     _elfSectionHeaders::00000444(*)  
+     b::00000000 00              ??         00h
+     b::00000001 63 72 74        utf8       u8"crt1.o"
+                 31 2e 6f 00
+     b::00000008 5f 5f 61        utf8       u8"__abi_tag"
+                 62 69 5f 
+                 74 61 67 00
+     b::00000012 63 72 74        utf8       u8"crtstuff.c"
+                 73 74 75 
+                 66 66 2e 
+     b::0000001d 64 65 72        utf8       u8"deregister_tm_clones"
+                 65 67 69 
+                 73 74 65 
+     b::00000032 5f 5f 64        utf8       u8"__do_global_dtors_aux"
+                 6f 5f 67 
+                 6c 6f 62 
+     b::00000048 63 6f 6d        utf8       u8"completed.0"
+                 70 6c 65 
+                 74 65 64 
+     b::00000054 5f 5f 64        utf8       u8"__do_global_dtors_aux_fini_array_entry"
+                 6f 5f 67 
+                 6c 6f 62 
+     b::0000007b 66 72 61        utf8       u8"frame_dummy"
+                 6d 65 5f 
+                 64 75 6d 
+     b::00000087 5f 5f 66        utf8       u8"__frame_dummy_init_array_entry"
+                 72 61 6d 
+                 65 5f 64 
+     b::000000a6 4f 54 50        utf8       u8"OTP.c"
+                 2e 63 00
+     b::000000ac 6d 61 73        utf8       u8"masterKey"
+                 74 65 72 
+                 4b 65 79 00
+     b::000000b6 6d 6f 64        utf8       u8"modes"
+                 65 73 00
+     b::000000bc 6f 6b 43 00     utf8       u8"okC"
+     b::000000c0 6f 6b 6e 00     utf8       u8"okn"
+     b::000000c4 6f 6b 4d 00     utf8       u8"okM"
+     b::000000c8 6f 6b 6d 00     utf8       u8"okm"
+     b::000000cc 4e 4c 00        utf8       u8"NL"
+     b::000000cf 5f 5f 46        utf8       u8"__FRAME_END__"
+                 52 41 4d 
+                 45 5f 45 
+     b::000000dd 5f 44 59        utf8       u8"_DYNAMIC"
+                 4e 41 4d 
+                 49 43 00
+     b::000000e6 5f 5f 47        utf8       u8"__GNU_EH_FRAME_HDR"
+                 4e 55 5f 
+                 45 48 5f 
+     b::000000f9 5f 47 4c        utf8       u8"_GLOBAL_OFFSET_TABLE_"
+                 4f 42 41 
+                 4c 5f 4f 
+     b::0000010f 67 65 74        utf8       u8"getOTP"
+                 4f 54 50 00
+     b::00000116 5f 5f 6c        utf8       u8"__libc_start_main@GLIBC_2.34"
+                 69 62 63 
+                 5f 73 74 
+     b::00000133 5f 5f 78        utf8       u8"__x86.get_pc_thunk.bx"
+                 38 36 2e 
+                 67 65 74 
+     b::00000149 70 72 69        utf8       u8"printf@GLIBC_2.0"
+                 6e 74 66 
+                 40 47 4c 
+     b::0000015a 5f 65 64        utf8       u8"_edata"
+                 61 74 61 00
+     b::00000161 6e 72 6d 00     utf8       u8"nrm"
+     b::00000165 5f 66 69        utf8       u8"_fini"
+                 6e 69 00
+     b::0000016b 6d 6b 74        utf8       u8"mktime@GLIBC_2.0"
+                 69 6d 65 
+                 40 47 4c 
+     b::0000017c 67 65 74        utf8       u8"getMode"
+                 4d 6f 64 
+                 65 00
+     b::00000184 67 65 74        utf8       u8"getSecret"
+                 53 65 63 
+                 72 65 74 00
+     b::0000018e 5f 5f 64        utf8       u8"__data_start"
+                 61 74 61 
+                 5f 73 74 
+     b::0000019b 70 75 74        utf8       u8"puts@GLIBC_2.0"
+                 73 40 47 
+                 4c 49 42 
+     b::000001aa 5f 5f 67        utf8       u8"__gmon_start__"
+                 6d 6f 6e 
+                 5f 73 74 
+     b::000001b9 5f 5f 64        utf8       u8"__dso_handle"
+                 73 6f 5f 
+                 68 61 6e 
+     b::000001c6 6d 76 00        utf8       u8"mv"
+     b::000001c9 5f 49 4f        utf8       u8"_IO_stdin_used"
+                 5f 73 74 
+                 64 69 6e 
+     b::000001d8 73 74 72        utf8       u8"strlen@GLIBC_2.0"
+                 6c 65 6e 
+                 40 47 4c 
+     b::000001e9 5f 65 6e        utf8       u8"_end"
+                 64 00
+     b::000001ee 5f 64 6c        utf8       u8"_dl_relocate_static_pie"
+                 5f 72 65 
+                 6c 6f 63 
+     b::00000206 5f 66 70        utf8       u8"_fp_hw"
+                 5f 68 77 00
+     b::0000020d 64 69 66        utf8       u8"difftime@GLIBC_2.0"
+                 66 74 69 
+                 6d 65 40 
+     b::00000220 5f 5f 62        utf8       u8"__bss_start"
+                 73 73 5f 
+                 73 74 61 
+     b::0000022c 6d 61 69        utf8       u8"main"
+                 6e 00
+     b::00000231 5f 5f 69        utf8       u8"__isoc99_scanf@GLIBC_2.7"
+                 73 6f 63 
+                 39 39 5f 
+     b::0000024a 5f 5f 54        utf8       u8"__TMC_END__"
+                 4d 43 5f 
+                 45 4e 44 
+     b::00000256 6f 75 74 00     utf8       u8"out"
+     b::0000025a 5f 69 6e        utf8       u8"_init"
+                 69 74 00
+                             //
+                             // .symtab 
+                             // SHT_SYMTAB [not-loaded]
+                             // .symtab::00000000-.symtab::0000036f
+                             //
+                             Elf32_Sym_ARRAY_.symtab__00000000               XREF[1]:     _elfSectionHeaders::0000041c(*)  
+     b::00000000 00 00 00        Elf32_Sy
+                 00 00 00 
+                 00 00 00 
+                             //
+                             // _elfSectionHeaders 
+                             // Elf Section Headers
+                             // _elfSectionHeaders::00000000-_elfSectionHeaders::00000487
+                             //
+                             Elf32_Shdr_ARRAY__elfSectionHeaders__00000000   XREF[1]:     08048020(*)  
+     s::00000000 00 00 00        Elf32_Sh                                                    SECTION0 - SHT_NULL
+                 00 00 00 
+                 00 00 00 
