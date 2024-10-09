@@ -38,9 +38,9 @@
 
   This command sets the string value of `password` at `EBP - 0x3c` to `"your_new_password"`.
 
-## GDB Execution Output
+# GDB Execution Output
 
-### First Version
+## First Version ( Set password directly into the stack ) 
 
 ```
 Enter your username (a-z low caps): username
@@ -66,9 +66,9 @@ Your next passwords = YdMCHdCR, RCdHCMdY ;o)
 The program is not being run.
 ```
 
-### Second Version
+## Second Version ( Restart the program to login )
 
-## Additional Comment
+### Additional Comment
 
 - We can also simply restart the program and use `"username"` as the username and the OTP password that we just pulled from the stack as the password.
 
