@@ -182,12 +182,14 @@ The `play` function is responsible for executing the main game logic. To better 
 ### Play Function Code Deconstruction
 
 ```c
+
 int play(undefined4 param_1)
+
 {
   bool doesWordExist;
   size_t secretWordLength;
   undefined3 extraout_var;
-  int iVar1;
+  int doesWordsMatch;
   char playerGuessBuffer [20];
   char secretBuffer [20];
   bool flag;
@@ -198,26 +200,26 @@ int play(undefined4 param_1)
   score = 10;
   initSecret(secretBuffer);
   secretWordLength = strlen(secretBuffer);
-  printf("[i] secret word is %d chars long\n", secretWordLength);
+  printf("[i] secret word is %d chars long\n",secretWordLength);
   do {
     currentGuessCount = currentGuessCount + 1;
-    printf("[i] round %d, iteration %d\n", param_1, currentGuessCount);
+    printf("[i] round %d, iteration %d\n",param_1,currentGuessCount);
     getWord(playerGuessBuffer);
     printf("[i] comparaison : ");
     puts(playerGuessBuffer);
     doesWordExist = exist(playerGuessBuffer);
-    if (CONCAT31(extraout_var, doesWordExist) == 0) {
+    if (CONCAT31(extraout_var,doesWordExist) == 0) {
 LAB_080496d5:
       _flag = 0;
     }
     else {
-      iVar1 = match(playerGuessBuffer, secretBuffer);
-      if (iVar1 == 0) goto LAB_080496d5;
+      doesWordsMatch = match(playerGuessBuffer,secretBuffer);
+      if (doesWordsMatch == 0) goto LAB_080496d5;
       _flag = 1;
     }
     score = score - (uint)(_flag == 0);
     if ((9 < currentGuessCount) || (_flag != 0)) {
-      printf("[i] --> score du jeu = %d\n", score);
+      printf("[i] --> score du jeu = %d\n",score);
       return score;
     }
   } while( true );
