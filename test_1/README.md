@@ -239,11 +239,17 @@ The `getWord` function is used to get the player's word guess. This function lik
 
 | Breakpoint Address | Comments                                   |
 |--------------------|-------------------------------------------|
-| 0x080493ac         | Before calling the `scanf` in `getWord()` |
-| 0x080496c2         | Instruction on call for `match` function (`doesWordsMatch = match(playerGuessBuffer,secretBuffer);`) |
-| 0x080494a6         | `secretLength = strlen(secretBuffer);`    |
+| 0x08049643         | instruction call of strlen, `secretWordLength = strlen(secretBuffer);`|
 
 ### GDB Commands
 
 - **Read the secret password from the stack**: `x/s $ebp-0x28`
 - **Overwrite the buffer into the stack for the user guess word**: `set {char[20]} $ebp-0x3c = "YOUR_NEW_GUESS"`
+
+
+### Variable Offset Table
+
+| Variable Name      | Offset       |
+|--------------------|--------------|
+| secretBuffer       | EBP - 0x28   |
+| playerGuessBuffer  | EBP - 0x3c   |
