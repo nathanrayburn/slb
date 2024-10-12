@@ -167,3 +167,83 @@ int askChoice(void)
   - `rawUserInput`: Holds the raw value returned by `getchar()`.
   - `gameOption`: Stores the selected game option after validation.
 - **Flow**: The function loops until the user inputs a valid option (`1`, `2`, or `3`). The value is validated and converted from ASCII to integer for further processing.
+
+## Play Function Deconstruction
+
+The `play` function is responsible for executing the main game logic. To better understand the function, we will track the stack usage and variable assignments throughout its execution.
+
+### Play Function Stack Tracking Table
+
+| Instruction Address | Stack Address | Comments                     |
+|---------------------|---------------|------------------------------|
+| 0x08049630          | EBP + -0x28   | secret buffer string         |
+| 0x08049679          | EBP + -0x3c   | user guess buffer            |
+
+### Play Function Code Deconstruction
+
+```c
+int play(undefined4 param_1)
+{
+  bool doesWordExist;
+  size_t secretWordLength;
+  undefined3 extraout_var;
+  int iVar1;
+  char playerGuessBuffer [20];
+  char secretBuffer [20];
+  bool flag;
+  int score;
+  int currentGuessCount;
+  
+  currentGuessCount = 0;
+  score = 10;
+  initSecret(secretBuffer);
+  secretWordLength = strlen(secretBuffer);
+  printf("[i] secret word is %d chars long\n", secretWordLength);
+  do {
+    currentGuessCount = currentGuessCount + 1;
+    printf("[i] round %d, iteration %d\n", param_1, currentGuessCount);
+    getWord(playerGuessBuffer);
+    printf("[i] comparaison : ");
+    puts(playerGuessBuffer);
+    doesWordExist = exist(playerGuessBuffer);
+    if (CONCAT31(extraout_var, doesWordExist) == 0) {
+LAB_080496d5:
+      _flag = 0;
+    }
+    else {
+      iVar1 = match(playerGuessBuffer, secretBuffer);
+      if (iVar1 == 0) goto LAB_080496d5;
+      _flag = 1;
+    }
+    score = score - (uint)(_flag == 0);
+    if ((9 < currentGuessCount) || (_flag != 0)) {
+      printf("[i] --> score du jeu = %d\n", score);
+      return score;
+    }
+  } while( true );
+}
+```
+
+- **Variables**:
+  - `playerGuessBuffer`: Stores the player's guess.
+  - `secretBuffer`: Stores the secret word that the player needs to guess.
+  - `score`: The player's current score, decreasing with incorrect guesses.
+  - `currentGuessCount`: Keeps track of the number of guesses made.
+- **Flow**: The function initializes the secret word, then enters a loop where the player makes guesses until either the correct word is guessed or the number of guesses exceeds 9.
+
+## GetWord Function Deconstruction
+
+The `getWord` function is used to get the player's word guess. This function likely handles input from the user and stores it for further processing.
+
+### Debug Breakpoints Table
+
+| Breakpoint Address | Comments                                   |
+|--------------------|-------------------------------------------|
+| 0x080493ac         | Before calling the `scanf` in `getWord()` |
+| 0x080496c2         | Instruction on call for `match` function (`doesWordsMatch = match(playerGuessBuffer,secretBuffer);`) |
+
+
+### GDB Commands
+
+- **Read the secret password from the stack**: `x/s $ebp-0x28`
+- **Overwrite the buffer into the stack for the user guess word**: `set {char[20]} $ebp-0x3c = "YOUR_NEW_GUESS"`
