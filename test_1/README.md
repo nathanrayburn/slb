@@ -34,80 +34,50 @@
 
 The application can be executed with either 2 or 3 arguments:
 
+Initialisation
 ```c
-undefined4 main(int argc, undefined4 *argv)
+/*originally in param1, undefined * param2*/
+undefined4 main(int argc,char *argv[])
+
 {
-  undefined4 uVar1;
-  FILE *filePointer;
-  int askChoiceResult;
-  int temp_2;
-  int temp_1;
+  undefined4 uVar1; // valeur de retour de main 
+  FILE *__stream;
+  int iVar2; // user input (choice 1, 2 or 3 -> play,reset,quit)
+  int local_18;
+  int local_14;
   
-  temp_1 = 0;
-  temp_2 = 0;
-                    /* If we execute the program with no arguments or more than 3, the program
-                       prints Usage: program.sh path_2_dico
-                        */
+  local_14 = 0; // => round
+  local_18 = 0; // => score
+
+```
+
+validation arguments
+```c
+    /* argc soit 2 soit 3 */
   if ((argc < 2) || (3 < argc)) {
-    printf("Usage: %s path_2_dico\n", *argv);
+    printf("Usage: %s path_2_dico\n",*(undefined4 *)argv[]);
     uVar1 = 0xffffffff;
   }
   else {
-                    /* We enter this else condition :  If argc = 2 or argc = 3 */
-    if (argc == 2) {
-      strncpy(dico, (char *)argv[1], 0x100);
-      filePointer = fopen(dico, "r");
-      if (filePointer == (FILE *)0x0) {
-        printf("Cannot find dico at %s\n", dico);
+    if (argc == 2) { /* argc 2 -> path to dico*/
+      strncpy(dico,*(char **)(argv[] + 4),0x100);
+      __stream = fopen(dico,"r");
+      if (__stream == (FILE *)0x0) {
+        printf("Cannot find dico at %s\n",dico);
         return 0xffffffff;
       }
-      fclose(filePointer);
+      fclose(__stream);
     }
-    else {
-                    /* If argc = 3 
-                       arg parse check. checks for -s
-                       ./exec -s value
-                       argv[0] = te1_motus24
-                       argv[1] =  -s
-                       argv[2] =  value ( maybe file path ? ) */
-      if ((*(char *)argv[1] != '-') || (*(char *)(argv[1] + 1) != 's')) {
-        printf("Unexpected value passed in argument: %s\n", argv[1]);
+    else { /* argc 3 -> -s motàdeviner */
+      if ((**(char **)(argv[] + 4) != '-') || (*(char *)(*(int *)(argv[] +  4) + 1) != 's')) {
+        printf("Unexpected value passed in argument: %s\n",*(und efined4 *)(argv[] + 4));
         return 0xffffffff;
       }
-                    /* dest = This is the pointer to the destination array where to copy the content
-                       src  = String to be copied
-                       n    = The number of characters to be copied from the source
-                       char * strncpy(char *dest, const char *src, size_t n) 
-                        */
-      strncpy(dico, (char *)argv[2], 0x14);
+      strncpy(dico,*(char **)(argv[] + 8),0x14);
       nodico = 1;
     }
-    while (askChoiceResult = askChoice(), askChoiceResult != 3) {
-      if (askChoiceResult < 4) {
-        if (askChoiceResult == 1) {
-          temp_1 = temp_1 + 1;
-          askChoiceResult = play(temp_1);
-          temp_2 = temp_2 + askChoiceResult;
-          printf("[i] --> score total = %d\n", temp_2);
-        }
-        else {
-          if (askChoiceResult != 2) goto LAB_08049988;
-          temp_1 = 0;
-          temp_2 = 0;
-          printf("[i] --> score total = %d\n", 0);
-        }
-      }
-      else {
-LAB_08049988:
-        fprintf(stderr, "ERREUR : option %d non disponible\n\n", askChoiceResult);
-      }
-    }
-    puts(&DAT_0804a18f);
-    uVar1 = 0;
-  }
-  return uVar1;
-}
-```
+
+``` 
 
 - **Arguments**:
   - If **argc = 2**: The second argument is expected to be the path to a dictionary file (`path_2_dico`).
@@ -130,43 +100,56 @@ The `askChoice` function is responsible for presenting the user with a menu of o
 
 ```c
 int askChoice(void)
+
 {
-  char userInputInChar;
-  int rawUserInput;
-  int gameOption;
+  char cVar1; //user input as char
+  int iVar2; //user input
+  int local_10; //return value
   
-  gameOption = 0;
+  local_10 = 0; //initialisation
   puts("\n--------------------");
-                    /* Loop until chosen a valid option. */
-  while ((gameOption < 1 || (3 < gameOption))) {
+  while ((local_10 < 1 || (3 < local_10))) {
     puts("[m] Select");
     puts("[1] play");
     puts("[2] reset");
     puts("[3] stop");
     printf("\n[?] Your choice: ");
-    rawUserInput = getchar();
-    userInputInChar = (char)rawUserInput;
-    if ((userInputInChar < '1') || ('3' < userInputInChar)) {
-      gameOption = -1;
+    iVar2 = getchar();
+    cVar1 = (char)iVar2;
+    if ((cVar1 < '1') || ('3' < cVar1)) { // validation input
+      local_10 = -1;
     }
     else {
-                    /* Convert the ASCII "1","2","3" into int value 1,2,3 */
-      gameOption = userInputInChar + -0x30;
+      local_10 = cVar1 + -0x30; //convert the char into an int 
     }
-    if (gameOption < 0) {
+    if (local_10 < 0) {
       puts("\n--------------------");
     }
     flushInput();
   }
-  return gameOption;
+  return local_10;
 }
 ```
 
-- **Variables**:
-  - `userInputInChar`: Stores the character input by the user.
-  - `rawUserInput`: Holds the raw value returned by `getchar()`.
-  - `gameOption`: Stores the selected game option after validation.
-- **Flow**: The function loops until the user inputs a valid option (`1`, `2`, or `3`). The value is validated and converted from ASCII to integer for further processing.
+flush the input buffer
+
+```c
+void flushInput(void)
+
+{
+  int iVar1;
+  
+  do {
+    iVar1 = getchar();
+    if ((char)iVar1 == '\n') {
+      return;
+    }
+  } while ((char)iVar1 != -1);
+  return;
+}
+
+
+```
 
 ## Play Function Deconstruction
 
@@ -182,54 +165,46 @@ The `play` function is responsible for executing the main game logic. To better 
 ### Play Function Code Deconstruction
 
 ```c
-int play(undefined4 param_1)
+int play(undefined4 param_1) //param1 = round
+
 {
-  bool doesWordExist;
-  size_t secretWordLength;
-  undefined3 extraout_var;
-  int doesWordsMatch;
-  char playerGuessBuffer [20];
-  char secretBuffer [20];
-  bool flag;
-  int score;
-  int currentGuessCount;
+  size_t sVar1; //secret length
+  int iVar2; //val for some func return (test val)
+  char local_40 [20]; //guess
+  char local_2c [20]; //secret
+  int local_18; //wordFound
+  int local_14; // score for this round
+  int local_10; // iteration (nb of guess)
   
-  currentGuessCount = 0;
-  score = 10;
-  initSecret(secretBuffer);
-  secretWordLength = strlen(secretBuffer);
-  printf("[i] secret word is %d chars long\n", secretWordLength);
-  do {
-    currentGuessCount = currentGuessCount + 1;
-    printf("[i] round %d, iteration %d\n", param_1, currentGuessCount);
-    getWord(playerGuessBuffer);
+  local_10 = 0;
+  local_14 = 10;
+  initSecret(local_2c);
+  sVar1 = strlen(local_2c);
+  printf("[i] secret word is %d chars long\n",sVar1);
+  do { //game loop
+    local_10 = local_10 + 1;
+    printf("[i] round %d, iteration %d\n",param_1,local_10);
+    getWord(local_40); //user input (guess)
     printf("[i] comparaison : ");
-    puts(playerGuessBuffer);
-    doesWordExist = exist(playerGuessBuffer);
-    if (CONCAT31(extraout_var, doesWordExist) == 0) {
-LAB_080496d5:
-      flag = 0;
+    puts(local_40);
+    iVar2 = exist(local_40); //test if word exists in dict (maybe patch here for guaranteed win)
+    if (iVar2 == 0) { // patch
+LAB_080496d5:      
+      local_18 = 0;
     }
     else {
-      doesWordsMatch = match(playerGuessBuffer, secretBuffer);
-      if (doesWordsMatch == 0) goto LAB_080496d5;
-      flag = 1;
+      iVar2 = match(local_40,local_2c); //check if guess matches secret
+      if (iVar2 == 0) goto LAB_080496d5;
+      local_18 = 1;
     }
-    score = score - (uint)(flag == 0);
-    if ((9 < currentGuessCount) || (flag != 0)) {
-      printf("[i] --> score du jeu = %d\n", score);
-      return score;
+    local_14 = local_14 - (uint)(local_18 == 0); //score for this round - 1 if word not found
+    if ((9 < local_10) || (local_18 != 0)) { //if 10 guesses or word found, game over
+      printf("[i] --> score du jeu = %d\n",local_14);
+      return local_14;
     }
   } while( true );
 }
 ```
-
-- **Variables**:
-  - `playerGuessBuffer`: Stores the player's guess.
-  - `secretBuffer`: Stores the secret word that the player needs to guess.
-  - `score`: The player's current score, decreasing with incorrect guesses.
-  - `currentGuessCount`: Keeps track of the number of guesses made.
-- **Flow**: The function initializes the secret word, then enters a loop where the player makes guesses until either the correct word is guessed or the number of guesses exceeds 9.
 
 ## GetWord Function Deconstruction
 
@@ -274,17 +249,8 @@ At the breakpoint set in the match function, the stack's current state is as fol
 
 ### Details
 
-- **Param1 (guessBufferPointer)**: The value of `param1` at offset `+008` (based on `ebp`) is `0xffffcb30`, which points to `0xffffcb4c` and has the value `'voitures'`.
-- **Param2 (secretWordBufferPoint)**: At offset `+00c` (based on `ebp`), the address `0xffffcb34` points to `0xffffcb60` with the value `'degouter'`.
-- **Local_10 (i)**: The local variable `local_10` is stored at offset `-01c` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb0c`.
-- **Local_14 (j)**: The local variable `local_14` is stored at offset `-018` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb10`.
-- **Local_18 (hasSameLength)**: The local variable `local_18` is stored at offset `-014` (based on `ebp`) with the value `0`. The corresponding memory address is `0xffffcb14`.
-- **Local_1c (userGuessLength)**: The local variable `local_1c` is stored at offset `-010` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb18`.
-- **Local_20 (secretWordLength)**: The local variable `local_20` is stored at offset `-00c` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb1c`.
-- **aiStack_70[20] (bufferResult[i])**: The local array `aiStack_70[20]` is stored at offset `-06c` (based on `ebp`) with the value `0`. The corresponding memory address is `0xffffcabc`.
 - **iVar1 (charState), uVar2 (isMatch), sVar1, and iVar2**: These variables are used directly with registers and are not stored in the stack.
 
-This layout provides an understanding of the memory organization for the current stack frame during execution in the match function.
 
 # Stack Documentation at Play Function
 
@@ -300,13 +266,39 @@ At the breakpoint set in the play function, the stack's current state is as foll
 | Local_14       | `0xa ('\n')`        | `-010`                | `0xffffcb78` | `maxGuesses`           |
 | Local_10       | `1`                  | `-00c`                | `0xffffcb7c` | `guessCounter`         |
 
+Stack d'amir
+
+| adresse hexa  | contenu  | valeur typée  | mot hexa  |
+|---|---|---|---|
+|   |   |   |   |
+|-0x3c|local_40 => guess|init after getWord()|   |
+|-0x28|local_2c => secret|init after initSecret|   |
+|-0x14|local_18 => wordFound|0 or 1 or undefined at the start|0x1 0x0 or undef|
+|-0x10|local_14 => score|10 after init (decrement each wrong guess)|0xa|
+|-0xc|local_10 => iteration / nbGuess|0 (incremented at start of loop)|0x0|
+|0x0|saved EBP|   |   |
+|+0x4|saved EIP|   |   |
+|+0x8|param_1 => round|1 (for first exec)|0x1|
+|...|...|...|...|
+
+
 ### Details
 
-- **Local_40 (playerGuessBuffer)**: The local variable `local_40` is stored at offset `-03c` (based on `ebp`) with the value `0x333231 ('123')`. The corresponding memory address is `0xffffcb4c`.
-- **Local_2c (secretWordBuffer)**: The local variable `local_2c` is stored at offset `-028` (based on `ebp`) with the value `'degouter'`. The corresponding memory address is `0xffffcb60`.
-- **Local_18 (isSecretFoundFlag)**: The local variable `local_18` is stored at offset `-014` (based on `ebp`) with the value `1`. The corresponding memory address is `0xffffcb74`.
-- **Local_14 (maxGuesses)**: The local variable `local_14` is stored at offset `-010` (based on `ebp`) with the value `0xa ('\n')`. The corresponding memory address is `0xffffcb78`.
-- **Local_10 (guessCounter)**: The local variable `local_10` is stored at offset `-00c` (based on `ebp`) with the value `1`. The corresponding memory address is `0xffffcb7c`.
 - **sVar1 and iVar2**: These variables are used directly with registers and are not stored in the stack.
 
-This layout provides an understanding of the memory organization for the current stack frame during execution in the play function.
+
+## Main Function - Stack Layout
+| adresse hexa  | contenu  | valeur typée  | mot hexa  |
+|---|---|---|---|
+|   |   |   |   |
+|-0xc|local_18 => score|0|0x0|
+|-0x8|local_14 => round|0|0x0|
+|0x0|saved EBP|   |   |
+|+0x4|saved EIP|   |   |
+|...|...|...|...|
+|+0x18|argc|2 ou 3|   |
+|+0x1c|argv|adr|   |
+
+=>  adr: ptr vers argv[0] (/home/slb/Downloads/te1_motus24)
+    adr+4: ptr vers argv[1] (-s ou ./dict_8-10.txt)
+    adr+8: ptr vers argv[2] (secret ou rien)
