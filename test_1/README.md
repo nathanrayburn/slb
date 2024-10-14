@@ -341,7 +341,7 @@ Second patch in initSecret function, patch the JZ to jump to the NOP addr : 0x08
 ```
 
 
-### Third Patche
+### Third Patch
 
 You can Simply implement NOP operations and change the printf string to %s to print the secret password. 
 This works by simply keeping the secret password in EAX which then printf will use it to print later in the console.
