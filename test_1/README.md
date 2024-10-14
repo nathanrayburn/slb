@@ -253,3 +253,60 @@ The `getWord` function is used to get the player's word guess. This function lik
 |--------------------|--------------|
 | secretBuffer       | EBP - 0x28   |
 | playerGuessBuffer  | EBP - 0x3c   |
+
+
+# Stack Documentation at Match Function
+
+## Match Function - Stack Layout
+
+At the breakpoint set in the match function, the stack's current state is as follows:
+
+| Comment        | Value                | Offset (based on EBP) | Address     | Conversion Name        |
+|----------------|----------------------|-----------------------|-------------|------------------------|
+| Param1         | `0xffffcb30`         | `+008`                | `0xffffcb30 → 0xffffcb4c → 'voitures'` | `guessBufferPointer`   |
+| Param2         | `0xffffcb34`         | `+00c`                | `0xffffcb34 → 0xffffcb60 → 'degouter'` | `secretWordBufferPoint`|
+| Local_10       | `8`                  | `-01c`                | `0xffffcb0c` | `i`                    |
+| Local_14       | `8`                  | `-018`                | `0xffffcb10` | `j`                    |
+| Local_18       | `0`                  | `-014`                | `0xffffcb14` | `hasSameLength`        |
+| Local_1c       | `8`                  | `-010`                | `0xffffcb18` | `userGuessLength`      |
+| Local_20       | `8`                  | `-00c`                | `0xffffcb1c` | `secretWordLength`     |
+| aiStack_70[20] | `0`                  | `-06c`                | `0xffffcabc` | `bufferResult[i]`      |
+
+### Details
+
+- **Param1 (guessBufferPointer)**: The value of `param1` at offset `+008` (based on `ebp`) is `0xffffcb30`, which points to `0xffffcb4c` and has the value `'voitures'`.
+- **Param2 (secretWordBufferPoint)**: At offset `+00c` (based on `ebp`), the address `0xffffcb34` points to `0xffffcb60` with the value `'degouter'`.
+- **Local_10 (i)**: The local variable `local_10` is stored at offset `-01c` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb0c`.
+- **Local_14 (j)**: The local variable `local_14` is stored at offset `-018` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb10`.
+- **Local_18 (hasSameLength)**: The local variable `local_18` is stored at offset `-014` (based on `ebp`) with the value `0`. The corresponding memory address is `0xffffcb14`.
+- **Local_1c (userGuessLength)**: The local variable `local_1c` is stored at offset `-010` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb18`.
+- **Local_20 (secretWordLength)**: The local variable `local_20` is stored at offset `-00c` (based on `ebp`) with the value `8`. The corresponding memory address is `0xffffcb1c`.
+- **aiStack_70[20] (bufferResult[i])**: The local array `aiStack_70[20]` is stored at offset `-06c` (based on `ebp`) with the value `0`. The corresponding memory address is `0xffffcabc`.
+- **iVar1 (charState), uVar2 (isMatch), sVar1, and iVar2**: These variables are used directly with registers and are not stored in the stack.
+
+This layout provides an understanding of the memory organization for the current stack frame during execution in the match function.
+
+# Stack Documentation at Play Function
+
+## Play Function - Stack Layout
+
+At the breakpoint set in the play function, the stack's current state is as follows:
+
+| Comment        | Value                | Offset (based on EBP) | Address     | Conversion Name        |
+|----------------|----------------------|-----------------------|-------------|------------------------|
+| Local_40       | `0x333231 ('123')`   | `-03c`                | `0xffffcb4c` | `playerGuessBuffer`    |
+| Local_2c       | `'degouter'`         | `-028`                | `0xffffcb60` | `secretWordBuffer`     |
+| Local_18       | `1`                  | `-014`                | `0xffffcb74` | `isSecretFoundFlag`    |
+| Local_14       | `0xa ('\n')`        | `-010`                | `0xffffcb78` | `maxGuesses`           |
+| Local_10       | `1`                  | `-00c`                | `0xffffcb7c` | `guessCounter`         |
+
+### Details
+
+- **Local_40 (playerGuessBuffer)**: The local variable `local_40` is stored at offset `-03c` (based on `ebp`) with the value `0x333231 ('123')`. The corresponding memory address is `0xffffcb4c`.
+- **Local_2c (secretWordBuffer)**: The local variable `local_2c` is stored at offset `-028` (based on `ebp`) with the value `'degouter'`. The corresponding memory address is `0xffffcb60`.
+- **Local_18 (isSecretFoundFlag)**: The local variable `local_18` is stored at offset `-014` (based on `ebp`) with the value `1`. The corresponding memory address is `0xffffcb74`.
+- **Local_14 (maxGuesses)**: The local variable `local_14` is stored at offset `-010` (based on `ebp`) with the value `0xa ('\n')`. The corresponding memory address is `0xffffcb78`.
+- **Local_10 (guessCounter)**: The local variable `local_10` is stored at offset `-00c` (based on `ebp`) with the value `1`. The corresponding memory address is `0xffffcb7c`.
+- **sVar1 and iVar2**: These variables are used directly with registers and are not stored in the stack.
+
+This layout provides an understanding of the memory organization for the current stack frame during execution in the play function.
