@@ -412,8 +412,8 @@ gdb avec breakpoint après l'appel de initSecret
 | adresse hexa  | contenu  | valeur typée  | mot hexa  |
 |---|---|---|---|
 |   |   |   |   |
-|-0xc|local_18 => score|0|0x0|
-|-0x8|local_14 => round|0|0x0|
+|-0x10|local_18 => score|0|0x0|
+|-0xc|local_14 => round|0|0x0|
 |0x0|saved EBP|   |   |
 |+0x4|saved EIP|   |   |
 |...|...|...|...|
