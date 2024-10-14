@@ -438,3 +438,18 @@ gdb avec breakpoint après l'appel de initSecret
 |+0x4|saved EIP|   |   |
 |+0x8|param_1 => round|1 (for first exec)|0x1|
 |...|...|...|...|
+
+## Unused function
+
+```c
+void eraseWord(int param_1) //pointeur vers un string
+
+{
+  int local_8; //iter
+  
+  for (local_8 = 0; local_8 < 0x14; local_8 = local_8 + 1) { //loop 20 fois (longueur max des mots et guess dans le programme)
+    *(undefined *)(param_1 + local_8) = 0x2e; //set tout à '.'
+  }
+  return;
+}
+```
