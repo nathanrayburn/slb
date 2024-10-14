@@ -340,3 +340,51 @@ Second patch in initSecret function, patch the JZ to jump to the NOP addr : 0x08
         0804936c 74 0c           JZ         LAB_0804937a
 ```
 
+
+### Third Patche
+
+You can Simply implement NOP operations and change the printf string to %s to print the secret password. 
+This works by simply keeping the secret password in EAX which then printf will use it to print later in the console.
+
+
+originally
+
+```assembly
+        08049634 e8 ab fc        CALL       initSecret                                       undefined initSecret(undefined4 
+                 ff ff
+        08049639 83 c4 10        ADD        ESP,0x10
+        0804963c 83 ec 0c        SUB        ESP,0xc
+        0804963f 8d 45 d8        LEA        EAX=>local_2c,[EBP + -0x28]
+        08049642 50              PUSH       EAX
+        08049643 e8 78 fa        CALL       <EXTERNAL>::strlen                               size_t strlen(char * __s)
+                 ff ff
+```
+
+``àssembly
+08049634 e8 ab fc        CALL       initSecret                                       undefined initSecret(undefined4 
+                 ff ff
+        08049639 83 c4 10        ADD        ESP,0x10
+        0804963c 83 ec 0c        SUB        ESP,0xc
+        0804963f 8d 45 d8        LEA        EAX=>secretWord,[EBP + -0x28]
+        08049642 50              PUSH       EAX
+        08049643 90              NOP
+        08049644 90              NOP
+        08049645 90              NOP
+        08049646 90              NOP
+        08049647 90              NOP
+        08049648 90              NOP
+        08049649 90              NOP
+        0804964a 90              NOP
+        0804964b 90              NOP
+        0804964c 90              NOP
+        0804964d 90              NOP
+        0804964e 90              NOP
+        0804964f 90              NOP
+        08049650 90              NOP
+        08049651 90              NOP
+        08049652 90              NOP
+        08049653 90              NOP
+        08049654 e8 f7 f9        CALL       <EXTERNAL>::printf                               int printf(char * __format, ...)
+                 ff ff
+        08049659 83 c4 10        ADD        ESP,0x10
+```
