@@ -70,7 +70,9 @@ s > 2 -> `encrypt2`
 
 ### Question 4.7 : Quelles exceptions prévoit le code de `encrypt_dir` ? Pourquoi ?
 
-_En attente de réponse et analyse._
+- Si opendir rend nullptr: ouverture du dossier n'a pas marché
+- Si le nom du dossier est '..' ou '.': le programme ne veut pas ouvrir le dossier courant et il ne veut pas remonter l'arborescence
+- Si le fichier est lui-même: le programme ne veut pas se chiffrer lui-même
 
 ### Manipulation 4.2
 
