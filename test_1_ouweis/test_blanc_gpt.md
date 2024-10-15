@@ -218,7 +218,7 @@ La fonction `play` contient une boucle principale `do-while`. Voici une analyse 
 
 #### 2.1 **Mot deviné et score** (5 pts)
 
-Le mot accepté dépend du dictionnaire chargé. Si tu utilises un dictionnaire spécifique et que tu devines correctement le mot lors du premier tour, le score final sera de 10. 
+Le mot accepté dépend du dictionnaire chargé. Si tu utilises un dictionnaire spécifique et que tu devines correctement le mot lors du premier tour, le score final sera de 10.
 
 ---
 
@@ -287,10 +287,24 @@ La pile juste avant que le joueur entre un nouveau mot ressemblerait à ceci :
 4. **Conséquences** : On récupère toujours le premier mot du dictionnaire
 5. **Résultat visible** : Le joueur doit toujours deviner le même mot.
 
+#### 3.3 **Imprimer le secret** (5 pts)
+
+1. **Fonction concernée** : `play`
+2. **Instruction originales** :
+
+nous modifions dans les datas la valeur du printf pour mettre du print %s, et ensuite nous allons push le secret dans eax puis skip toutes les instructions entre le push et le print à l'aide de nop afin d'avoir le secret dans la consigne
+
+![alt text](image-1.png)
+
+1. **Instruction modifiées** :
+
+   ![alt text](image-2.png)
+   ![alt text](image-3.png)
+
+2. **Conséquences** : Nous pouvons maintenant voir le secret directement au début du round
+3. **Résultat visible** : nous le voyons à l'écran instantanément.
+
 ---
-
-Voici les réponses détaillées pour la **Question 1** et la **Question 2** basées sur l'analyse de ton programme. Je te guiderai également pour certaines réponses si elles nécessitent une vérification dans Ghidra ou GDB.
-
 ---
 
 ### **Question 1 : Reverse de binaire (18 pts)**
