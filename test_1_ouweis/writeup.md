@@ -1,5 +1,7 @@
 # Préparation du TE1, de SLB
 
+lancer gdb en normal gdb -nx ./programme
+
 ### Structure du Writeup
 
 - [Préparation du TE1, de SLB](#préparation-du-te1-de-slb)
@@ -833,6 +835,8 @@ Voici une table des décalages mémoire des principales variables utilisées dan
 Ces offsets indiquent où dans la pile se trouvent les buffers **secretBuffer** (mot secret à deviner) et **playerGuessBuffer** (mot deviné par le joueur), et peuvent être utilisés pour déboguer et analyser les interactions entre les différentes parties du programme.
 
 ## stack
+
+pour afficher les stacks, suffit de se mettre juste avant le retour et à l'aide de gdb on met `stack 30`
 
 ## main
 
