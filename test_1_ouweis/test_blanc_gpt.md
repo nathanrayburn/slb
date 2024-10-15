@@ -250,7 +250,7 @@ La pile juste avant que le joueur entre un nouveau mot ressemblerait à ceci :
 
 ### **Question 3 : Patch**
 
-#### 3.1 **Modification pour victoire garantie** (5 pts)
+#### 3.1 **Modification pour victoire garantie tout court** (5 pts)
 
 1. **Fonction concernée** : `play`
 2. **Instruction originale** :
@@ -263,13 +263,11 @@ La pile juste avant que le joueur entre un nouveau mot ressemblerait à ceci :
 3. **Instruction modifiée** :
 
    ```asm
-              080496b5 EB 1E           JMP        0X080496fa
+              080496b5 EB 1E           JMP        0X080496ce
    ```
 
-4. **Conséquences** : Peu importe le guess, tant que le mot existe nous gagnons
-5. **Résultat visible** : Le joueur voit un score de 10 après chaque partie, peu importe le mot mis tant qu'il appartient au dico
-
----
+4. **Conséquences** : Peu importe le guess, nous gagnons
+5. **Résultat visible** : Le joueur voit un score de 10 après chaque partie, peu importe le mot mis.
 
 #### 3.2 **Mot secret premier du dictionnaire** (5 pts)
 

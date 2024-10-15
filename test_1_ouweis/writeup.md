@@ -44,6 +44,7 @@
   - [stack](#stack)
   - [main](#main)
   - [play](#play)
+  - [match](#match)
 
 ### Introduction
 
@@ -866,3 +867,21 @@ Ces offsets indiquent où dans la pile se trouvent les buffers **secretBuffer** 
 |...|...|...|...|
 
 ![trouver argc et argv](image.png)
+
+## match
+
+Si le mot est **pas** le bon au retour de la fonction (ligne 52 / 0x08049612)
+
+| addr hexa    | contenu                       | valeur typée                   | mot hexa    |
+| ------------ | ----------------------------- | ------------------------------ | ----------- |
+| -074         | uvar2 = is_match              | 0                              | 0x0         |
+| -06c  - 0x20 | aiStack_70 = buffer_result    | 1 / 0 / 2 selon règle motus    | 0x1 / 2 / 0 |
+| -01c         | local_20 = secret_word_lenght | 8    (valeur du mot)           | 0x8         |
+| -018         | local_1c = user_guess_lenght  | 8 (valeur du mot)              | 0x8         |
+| -014         | local_18 = has_same_lenght    | 0                              | 0x0         |
+| -010         | local_14 = j                  | 8   (val mot)                  | 0x8         |
+| -00c         | local_10 = i                  | 8 (val mot)                    | 0x8         |
+| 0xffffcb28   | EBP                           | -                              | -           |
+| +008         | param1 = abaisser             | (mauvais mot existant ds dico) | 0x0         |
+| +00c         | param2 = degouter             | (secret_word)                  | 0x0         |
+|              |                               |                                |             |
