@@ -39,15 +39,34 @@ Ce sont deux valeurs qui sont premiers entre eux.
 
 ### Question 4.4 : Que fait le code C selon les différentes valeurs de retour de la fonction `is_prime` ?
 
-_En attente de réponse et analyse._
+Si la somme de tout les retours de `is_prime` vaut `4`, en recurision, on descend dans l'arbre et au backtrace, on chiffre les fichiers avec `encrypt0`, `encrypt1` et `encrypt2`. Sinon, on join le thread de la calculatrice `gnome-calculator` et le programme se termine.
 
 ### Question 4.5 : Que fait la fonction `encrypt_dir` invoquée après l’appel à `is_prime` dans `main` ?
 
-_En attente de réponse et analyse._
+La fonction `encrypt_dir`, s'occupe de la récurison pour descendre dans l'arbre de système de fichier. Lors du backtrace de la récursion, il compte l'occurence de la lettre `s` dans le nom du directory et ensuite décide quel chiffrement il utilise suivant le résultat. 
+
+s = 1 -> `encrypt0`
+s = 2 -> `encrypt1`
+s > 2 -> `encrypt2`
+
 
 ### Question 4.6 : Quelles sous-fonctions sont appelées par la fonction `encrypt_dir` et à quelle condition ?
 
-_En attente de réponse et analyse._
+![alt text](image-2.png)
+
+- `strcmp`
+- `fclose`
+- `strlen`
+- `fopen`
+- `snprintf`
+- `readdir`
+- `closedir`
+- `opendir`
+- `encrypt0`
+- `encrypt1`
+- `encrypt2`
+- `char_occurences`
+
 
 ### Question 4.7 : Quelles exceptions prévoit le code de `encrypt_dir` ? Pourquoi ?
 
