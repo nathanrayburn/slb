@@ -302,3 +302,35 @@ Stack d'amir
 =>  adr: ptr vers argv[0] (/home/slb/Downloads/te1_motus24)
     adr+4: ptr vers argv[1] (-s ou ./dict_8-10.txt)
     adr+8: ptr vers argv[2] (secret ou rien)
+
+
+## Patches 
+
+### First patch
+
+First patch in play function, patch the JZ after test and jump to the flag = 1. Addr 0x080496ce
+
+```assembly
+        080496ab e8 34 fd        CALL       exist                                            undefined exist(undefined4 param
+                 ff ff
+        080496b0 83 c4 10        ADD        ESP,0x10
+        080496b3 85 c0           TEST       EAX,EAX
+        080496b5 74 1e           JZ         LAB_080496d5
+```
+
+### Second patch
+
+Second patch in initSecret function, patch the JZ to jump to the NOP addr : 0x08049388
+
+
+```assembly
+        08049359 68 0a a0        PUSH       DAT_0804a00a                                     = 25h    %
+                 04 08
+        0804935e ff 75 e8        PUSH       dword ptr [EBP + local_1c]
+        08049361 e8 fa fc        CALL       <EXTERNAL>::__isoc99_fscanf                      undefined __isoc99_fscanf()
+                 ff ff
+        08049366 83 c4 10        ADD        ESP,0x10
+        08049369 83 f8 ff        CMP        EAX,-0x1
+        0804936c 74 0c           JZ         LAB_0804937a
+```
+
