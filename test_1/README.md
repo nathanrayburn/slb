@@ -246,6 +246,7 @@ At the breakpoint set in the match function, the stack's current state is as fol
 | -010         | local_14 = j                  | 8   (val mot)                  | 0x8         |
 | -00c         | local_10 = i                  | 8 (val mot)                    | 0x8         |
 | 0xffffcb28   | EBP                           | -                              | -           |
+| +004         | EIP                           | -                              | -           |
 | +008         | param1 = abaisser             | (mauvais mot existant ds dico) | 0x0         |
 | +00c         | param2 = degouter             | (secret_word)                  | 0x0         |
 |              |                               |                                |             |
