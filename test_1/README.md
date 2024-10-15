@@ -236,16 +236,21 @@ The `getWord` function is used to get the player's word guess. This function lik
 
 At the breakpoint set in the match function, the stack's current state is as follows:
 
-| Comment        | Value                | Offset (based on EBP) | Address     | Conversion Name        |
-|----------------|----------------------|-----------------------|-------------|------------------------|
-| Param1         | `0xffffcb30`         | `+008`                | `0xffffcb30 → 0xffffcb4c → 'voitures'` | `guessBufferPointer`   |
-| Param2         | `0xffffcb34`         | `+00c`                | `0xffffcb34 → 0xffffcb60 → 'degouter'` | `secretWordBufferPoint`|
-| Local_10       | `8`                  | `-01c`                | `0xffffcb0c` | `i`                    |
-| Local_14       | `8`                  | `-018`                | `0xffffcb10` | `j`                    |
-| Local_18       | `0`                  | `-014`                | `0xffffcb14` | `hasSameLength`        |
-| Local_1c       | `8`                  | `-010`                | `0xffffcb18` | `userGuessLength`      |
-| Local_20       | `8`                  | `-00c`                | `0xffffcb1c` | `secretWordLength`     |
-| aiStack_70[20] | `0`                  | `-06c`                | `0xffffcabc` | `bufferResult[i]`      |
+| addr hexa    | contenu                       | valeur typée                   | mot hexa    |
+| ------------ | ----------------------------- | ------------------------------ | ----------- |
+| -074         | uvar2 = is_match              | 0                              | 0x0         |
+| -06c  - 0x20 | aiStack_70 = buffer_result    | 1 / 0 / 2 selon règle motus    | 0x1 / 2 / 0 |
+| -01c         | local_20 = secret_word_lenght | 8    (valeur du mot)           | 0x8         |
+| -018         | local_1c = user_guess_lenght  | 8 (valeur du mot)              | 0x8         |
+| -014         | local_18 = has_same_lenght    | 0                              | 0x0         |
+| -010         | local_14 = j                  | 8   (val mot)                  | 0x8         |
+| -00c         | local_10 = i                  | 8 (val mot)                    | 0x8         |
+| 0xffffcb28   | EBP                           | -                              | -           |
+| +008         | param1 = abaisser             | (mauvais mot existant ds dico) | 0x0         |
+| +00c         | param2 = degouter             | (secret_word)                  | 0x0         |
+|              |                               |                                |             |
+
+
 
 ### Details
 
