@@ -30,3 +30,5 @@ La fonction prime permet de savoir si les deux valeurs entrant sont premier entr
 ## Question 4.3
 
 Quelles sont les valeurs passées aux appels à is_prime?
+
+Ce sont deux valeurs premier entre eux.
