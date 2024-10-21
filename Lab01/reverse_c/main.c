@@ -42,30 +42,64 @@ void decrypt0(FILE* fp) {
     }
 }
 
+void encrypt1(FILE *fp) {
+    int byteFromFile;
+    int var;
+    char res;
+
+    var = 7;
+    while(true) {
+        byteFromFile = fgetc(fp);
+        if (byteFromFile == EOF) break;
+        fseek(fp, -1, SEEK_CUR);
+        res = ((int)byteFromFile << 2 | (int)byteFromFile >> 6) + var;
+        var = res >> 2 | res * '@';
+        fputc(var,fp);
+    }
+}
+
+void decrypt1(FILE *fp) {
+    int byteFromFile;
+    uint var;
+    uint res;
+
+    var = 7;
+    while(true) {
+        byteFromFile = fgetc(fp);
+        if (byteFromFile == EOF) break;
+        fseek(fp, -1, SEEK_CUR);
+        res = byteFromFile - var;
+        var = byteFromFile >> 2 | byteFromFile * '@';
+        fputc(res,fp);
+    }
+}
+
 int main(void) {
-    FILE* fp = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/salary.txt", "rb+");
+    /*
+    FILE* fp = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/confidential.txt", "rb+");
     if (fp == NULL) {
         perror("Failed to open file");
         return 1;
     }
+
     decrypt0(fp);
     fclose(fp);
-
+    */
 
     FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/passwords.txt", "rb+");
     if (fp1 == NULL) {
         perror("Failed to open file");
         return 1;
     }
-    decrypt0(fp1);
+    decrypt1(fp1);
     fclose(fp1);
 
-    FILE* f2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/confidential.txt", "rb+");
+    FILE* f2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/salary.txt", "rb+");
     if (f2 == NULL) {
         perror("Failed to open file");
         return 1;
     }
-    decrypt0(f2);
+    decrypt1(f2);
     fclose(f2);
 
     /*
