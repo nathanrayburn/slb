@@ -29,12 +29,15 @@ void decrypt0(FILE* fp) {
             break;
         }
         fseek(fp, -1, SEEK_CUR);
-        res = (char)readCharFromFile ^ 0xef;
+
+        printf("%ld\n",ftell(fp));
+
+        res = (int)(char)readCharFromFile ^ 0xef;
         if ((res & 2) == 0) {
             fputc(res, fp);
             continue;
         }
-        res = (char)readCharFromFile ^ 0xbe;
+        res = (int)(char)readCharFromFile ^ 0xbe;
         fputc(res, fp);
     }
 }
@@ -47,6 +50,23 @@ int main(void) {
     }
     decrypt0(fp);
     fclose(fp);
+
+
+    FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/passwords.txt", "rb+");
+    if (fp1 == NULL) {
+        perror("Failed to open file");
+        return 1;
+    }
+    decrypt0(fp1);
+    fclose(fp1);
+
+    FILE* f2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/confidential.txt", "rb+");
+    if (f2 == NULL) {
+        perror("Failed to open file");
+        return 1;
+    }
+    decrypt0(f2);
+    fclose(f2);
 
     /*
     fp = fopen("passwords.txt", "rb");
