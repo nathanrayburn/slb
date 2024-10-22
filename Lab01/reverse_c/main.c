@@ -55,7 +55,7 @@ void encrypt1(FILE *fp) {
         fseek(fp, -1, SEEK_CUR);
         res = ((int)byteFromFile << 2 | (int)byteFromFile >> 6) + var;
         var = res >> 2 | res * '@';
-        fputc(var,fp);
+        fputc(res,fp);
     }
 }
 
@@ -71,10 +71,11 @@ void decrypt1(FILE *fp) {
     const_value = 7;
 
     while((byteFromFile = fgetc(fp) != EOF)) {
+        fseek(fp, -1, SEEK_CUR);
 
         printf("%ld\n",ftell(fp));
 
-        uint8_t temp = byteFromFile;
+        uint8_t temp = (u_int8_t)byteFromFile;
         original_byte = (temp - const_value) << shift | (temp - const_value) >> right_shift;
         fputc(original_byte, fp);
         const_value = temp >> shift | temp * mult_val;
@@ -94,7 +95,7 @@ int main(void) {
     fclose(fp); */
 
 
-    FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/passwords.txt", "rb+");
+    FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/salary.txt", "rb+");
     if (fp1 == NULL) {
         perror("Failed to open file");
         return 1;
