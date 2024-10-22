@@ -148,7 +148,7 @@ res = local_10
 
 - Expliquez les instructions qui implémentent la logique de la fonction `encrypt0`.
 
-Première partie de la logique est la condition qui décide quel constante on utilise.
+**Première partie de la logique est la condition qui décide quel constante on utilise.**
 
 ```assembly
     080492ea 83 e0 02        AND        EAX,0x2      @ Calculate second bit
@@ -160,7 +160,7 @@ C Equiv.
 if ((uVar1 & 2) == 0) {
 ```
 
-La seconde partie c'est xor avec les constantes. On fait un saut ou pas suivant si le `deuxième bit` est set à `1`.
+**La seconde partie c'est xor avec les constantes. On fait un saut ou pas suivant si le `deuxième bit` est set à `1`.**
 
 ```assemly
 
