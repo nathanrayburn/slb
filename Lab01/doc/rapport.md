@@ -116,7 +116,30 @@ Dans Ghidra, afficher les codes C et assembleur de la fonction `encrypt1`.
 
 ### Question 6.1 : Que fait le code C affiché par Ghidra ?
 
-- _En attente de réponse._
+Le code de encrypt1 chiffre un fichier byte par byte en faisant quelques manipulations `bitwise operations` avec des `shift`, `or` et ainsi une multiplication avec une `constante`. 
+
+Nous avions une constante qui évolue après chaque itération, donc chaque `byte` contient une addition d'une `constante` calculable.
+
+```c
+void encrypt1(FILE *fp)
+
+{
+  int byteFromFile;
+  undefined var;
+  byte res;
+  
+  var = 7;
+  while( true ) {
+    byteFromFile = fgetc(fp);
+    if (byteFromFile == -1) break;
+    fseek(fp,-1,1);
+    res = ((byte)byteFromFile << 2 | (byte)byteFromFile >> 6) + var;
+    var = res >> 2 | res * '@';
+    fputc((uint)res,fp);
+  }
+  return;
+}
+```
 
 ### Manipulation 6.2
 
@@ -128,6 +151,14 @@ Commentez le code C dans Ghidra, puis renommer et/ou "retyper" les variables loc
 - Expliquez les instructions qui implémentent la logique de la fonction `encrypt1`.
 
 ### Question 6.3 : Quelle/s instruction/s n’a/ont pas été vue/s en cours ? Que fait/font elle/s ?
+
+ROR, operation de rotation de bits. (Différent du shift extended unsigned or signed)
+
+(A compléter, surement d'autres instructions?)
+
+```assembly
+        080493a6 d2 c8           ROR        AL,CL
+```
 
 - _En attente de réponse._
 
