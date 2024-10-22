@@ -71,6 +71,9 @@ void decrypt1(FILE *fp) {
     const_value = 7;
 
     while((byteFromFile = fgetc(fp) != EOF)) {
+
+        printf("%ld\n",ftell(fp));
+
         uint8_t temp = byteFromFile;
         original_byte = (temp - const_value) << shift | (temp - const_value) >> right_shift;
         fputc(original_byte, fp);
@@ -88,8 +91,8 @@ int main(void) {
     }
 
     decrypt0(fp);
-    fclose(fp);
-    */
+    fclose(fp); */
+
 
     FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/passwords.txt", "rb+");
     if (fp1 == NULL) {
