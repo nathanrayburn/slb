@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <sys/types.h>
 
@@ -60,18 +61,22 @@ void encrypt1(FILE *fp) {
 
 void decrypt1(FILE *fp) {
     int byteFromFile;
-    uint var;
-    uint res;
+    const uint8_t mult_val = 64;
+    const uint8_t shift = 2;
+    const uint8_t right_shift = 6;
 
-    var = 7;
-    while(true) {
-        byteFromFile = fgetc(fp);
-        if (byteFromFile == EOF) break;
-        fseek(fp, -1, SEEK_CUR);
-        res = byteFromFile - var;
-        var = byteFromFile >> 2 | byteFromFile * '@';
-        fputc(res,fp);
+    uint8_t const_value;
+    uint8_t original_byte;
+
+    const_value = 7;
+
+    while((byteFromFile = fgetc(fp) != EOF)) {
+        uint8_t temp = byteFromFile;
+        original_byte = (temp - const_value) << shift | (temp - const_value) >> right_shift;
+        fputc(original_byte, fp);
+        const_value = temp >> shift | temp * mult_val;
     }
+
 }
 
 int main(void) {
@@ -93,14 +98,14 @@ int main(void) {
     }
     decrypt1(fp1);
     fclose(fp1);
-
+    /*
     FILE* f2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/salary.txt", "rb+");
     if (f2 == NULL) {
         perror("Failed to open file");
         return 1;
     }
     decrypt1(f2);
-    fclose(f2);
+    fclose(f2); */
 
     /*
     fp = fopen("passwords.txt", "rb");
