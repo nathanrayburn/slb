@@ -100,7 +100,93 @@ Commentez le code C dans Ghidra, puis renommer et/ou "retyper" les variables loc
 ### Question 5.2 : Analysez le code assembleur correspondant à la partie chiffrement :
 
 - Identifiez les parties de gestion de la pile comme telle (sans les expliquer).
+
+fp  = param_1
+res = local_10
+
+`Prologue`
+```assembly
+080492cd 55              PUSH       EBP
+080492ce 89 e5           MOV        EBP,ESP
+080492d0 83 ec 18        SUB        ESP,0x18
+```
+
+`Epilogue`
+
+```assembly
+0804933d c9              LEAVE
+0804933e c3              RET
+```
+
+`Gestion de stack`
+```assembly  
+080492d5 83 ec 04        SUB        ESP,0x4
+080492d8 6a 01           PUSH       0x1
+080492da 6a ff           PUSH       -0x1
+080492dc ff 75 08        PUSH       dword ptr [EBP + fp]
+
+...
+
+
+08049313 83 ec 08        SUB        ESP,0x8
+08049316 ff 75 08        PUSH       dword ptr [EBP + fp]
+08049319 ff 75 f4        PUSH       dword ptr [EBP + res]
+
+...
+
+08049324 83 ec 0c        SUB        ESP,0xc
+08049327 ff 75 08        PUSH       dword ptr [EBP + fp]
+
+
+```
+| Base  + Offset   | Comment  |
+|-----------|----------|
+| `EBP`  +   param_1     | file stream pointer    |
+| `EBP`  +   local_10    | changed byte variable    |
+
+
+
 - Expliquez les instructions qui implémentent la logique de la fonction `encrypt0`.
+
+Première partie de la logique est la condition qui décide quel constante on utilise.
+
+```assembly
+    080492ea 83 e0 02        AND        EAX,0x2      @ Calculate second bit
+    080492ed 85 c0           TEST       EAX,EAX      @ Test EAX value is 0 without modifying EAX with AND op
+    080492ef 74 12           JZ         LAB_08049303 @ Jump if EAX is 0
+```
+C Equiv.
+```c
+if ((uVar1 & 2) == 0) {
+```
+
+La seconde partie c'est xor avec les constantes. On fait un saut ou pas suivant si le `deuxième bit` est set à `1`.
+
+```assemly
+
+@ Simple xor avec la constante et le byte
+
+0804930c 81 75 f4        XOR        dword ptr [EBP + local_10],0xef 
+
+...
+
+
+@ Même chose mais avec l'autre constante si le 2ème bit vaut 1
+
+080492fa 81 75 f4        XOR        dword ptr [EBP + local_10],0xbe 
+
+```
+
+C Equiv.
+
+```C
+local_10 = (int)(char)uVar1 ^ 0xef;
+
+...
+
+local_10 = (int)(char)uVar1 ^ 0xbe;
+
+```
 
 ### Manipulation 5.3
 
