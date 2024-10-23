@@ -255,7 +255,7 @@ void decrypt2(FILE *file, char* newfile){
     byte bVar2;
     byte bVar3;
     uint uVar4;
-    byte local_40 [16];
+    byte local_40 [16] = {1, 211, 7, 21, 107, 10, 0, 0, 0, 187, 211, 7, 21, 107, 10, 0};
     byte local_30;
     byte local_29;
     int local_28;
@@ -263,7 +263,7 @@ void decrypt2(FILE *file, char* newfile){
     uint local_18;
     byte local_11;
     int iter;
-
+/*
     key = generateKey(0x63763789,0xd81,0x10001,0,0x63763789,0xd81);
     uVar4 = (uint)(key >> 0x20);
     for (iter = 1; iter < 9; iter = iter + 1) {
@@ -282,7 +282,7 @@ void decrypt2(FILE *file, char* newfile){
         bVar2 = (byte)(uVar4 >> (bVar3 & 0x1f));
         }
         (&local_30)[-iter] = bVar2;
-    }
+    }*/
 
     fseek(file, -1, 2);
     int nb_bytes = ftell(file);
@@ -305,7 +305,7 @@ void decrypt2(FILE *file, char* newfile){
     FILE* output = fopen(newfile, "wb");
 
     int i = 0;
-    while(i < filesize){
+    while(i < filesize-1){
         int byte_from_file = buf[i++];
         //if (byte_from_file == -1) break;
         //fseek(output,-1,1);
