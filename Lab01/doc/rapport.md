@@ -234,7 +234,210 @@ Commentez le code C dans Ghidra, puis renommer et/ou "retyper" les variables loc
 ### Question 6.2 : Analysez le code assembleur correspondant à la partie chiffrement :
 
 - Identifiez les parties de gestion de la pile comme telle (sans les expliquer).
+
+`Prologue`
+```assembly
+0804933f 55              PUSH       EBP
+08049340 89 e5           MOV        EBP,ESP
+08049342 83 ec 28        SUB        ESP,0x28
+```
+
+`Epilogue`
+```assembly
+080493e2 c9              LEAVE
+080493e3 c3              RET
+```
+
+Préparation des arguments pour le `call` de `fseek`
+```assembly
+0804934b 83 ec 04        SUB        ESP,0x4                 @ Grandir le stack pointer
+0804934e 6a 01           PUSH       0x1                     @ 3ème arg
+08049350 6a ff           PUSH       -0x1                    @ 2ème arg
+08049352 ff 75 08        PUSH       dword ptr [EBP + fp]    @ 1er arg
+08049355 e8 16 fd        CALL       <EXTERNAL>::fseek       @ Call
+0804935a 83 c4 10        ADD        ESP,0x10                @ Raccourcir le stack pointer
+```
+
+Préparation des arguments pour le `call` de `fputc`
+```assembly
+080493b6 83 ec 08        SUB        ESP,0x8                 @ Grandir le stack pointer
+080493b9 ff 75 08        PUSH       dword ptr [EBP + fp]    @ 2ème arg
+080493bc 50              PUSH       EAX                     @ 1er  arg
+080493bd e8 4e fd        CALL       <EXTERNAL>::fputc       @ Call
+080493c2 83 c4 10        ADD        ESP,0x10                @ Raccourcir le stack pointer
+
+...
+
+@ Même chose pour fgetc
+
+080493c5 83 ec 0c        SUB        ESP,0xc
+080493c8 ff 75 08        PUSH       dword ptr [EBP + fp]
+080493cb e8 10 fd        CALL       <EXTERNAL>::fgetc 
+080493d0 83 c4 10        ADD        ESP,0x10
+
+
+```
+
+`Gestion de variables dans le stack`
+```assembly
+08049345 c6 45 f7 07     MOV        byte ptr [EBP + var],0x7
+...
+
+08049352 ff 75 08        PUSH       dword ptr [EBP + fp]
+...
+
+0804935d 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+08049360 0f b6 c0        MOVZX      EAX,AL
+08049363 88 45 e7        MOV        byte ptr [EBP + local_1d],AL
+08049366 c7 45 e0        MOV        dword ptr [EBP + local_24],0x2
+            02 00 00 00
+0804936d 8b 55 e0        MOV        EDX,dword ptr [EBP + local_24]
+08049370 0f b6 45 e7     MOVZX      EAX,byte ptr [EBP + local_1d]
+
+...
+
+08049378 88 45 e7        MOV        byte ptr [EBP + local_1d],AL
+0804937b 0f b6 45 e7     MOVZX      EAX,byte ptr [EBP + local_1d]
+0804937f 88 45 ef        MOV        byte ptr [EBP + local_15],AL
+08049382 0f b6 45 f7     MOVZX      EAX,byte ptr [EBP + var]
+08049386 00 45 ef        ADD        byte ptr [EBP + local_15],AL
+08049389 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+0804938c 88 45 f7        MOV        byte ptr [EBP + var],AL
+0804938f 0f b6 45 ef     MOVZX      EAX,byte ptr [EBP + local_15]
+08049393 88 45 ee        MOV        byte ptr [EBP + local_16],AL
+08049396 c7 45 e8        MOV        dword ptr [EBP + local_1c],0x2
+            02 00 00 00
+0804939d 8b 55 e8        MOV        EDX,dword ptr [EBP + local_1c]
+080493a0 0f b6 45 ee     MOVZX      EAX,byte ptr [EBP + local_16]
+
+...
+
+080493a8 88 45 ee        MOV        byte ptr [EBP + local_16],AL
+080493ab 0f b6 45 ee     MOVZX      EAX,byte ptr [EBP + local_16]
+080493af 88 45 f7        MOV        byte ptr [EBP + var],AL
+080493b2 0f b6 45 ef     MOVZX      EAX,byte ptr [EBP + local_15]
+080493b6 83 ec 08        SUB        ESP,0x8
+080493b9 ff 75 08        PUSH       dword ptr [EBP + fp]
+
+...
+
+080493c8 ff 75 08        PUSH       dword ptr [EBP + fp]
+
+...
+
+080493d3 89 45 f0        MOV        dword ptr [EBP + local_14],byteFromFile
+080493d6 83 7d f0 ff     CMP        dword ptr [EBP + local_14],-0x1
+
+```
+| Base  + Offset   | Comment  |
+|-----------|----------|
+| `EBP`  +   param_1     | file stream pointer                                   |
+| `EBP`  +   local_d     | Modifier constant variable to add with shifted byte   |
+| `EBP`  +   local_14    | temp variable ?                                       |
+| `EBP`  +   local_15    | to complete...    |
+| `EBP`  +   local_16    | to complete...    |
+| `EBP`  +   local_1c    | to complete...    |
+| `EBP`  +   local_1d    | to complete...    |
+| `EBP`  +   local_24    | to complete...    |
+
+
+
+
 - Expliquez les instructions qui implémentent la logique de la fonction `encrypt1`.
+
+Toute la logique du chiffrement se contient de cette boucle while. 
+
+```assembly
+            LAB_0804934b
+  934b SUB  ESP,0x4
+  934e PUSH 0x1
+  9350 PUSH -0x1
+  9352 PUSH dword ptr [EBP + fp]
+  9355 CALL <EXTERNAL>::fseek
+  935a ADD  ESP,0x10
+  935d MOV  EAX,dword ptr [EBP + local
+  9360 MOVZX EAX,AL
+  9363 MOV  byte ptr [EBP + local_1d],
+  9366 MOV  dword ptr [EBP + local_24]
+  936d MOV  EDX,dword ptr [EBP + local
+  9370 MOVZX EAX,byte ptr [EBP + local_
+  9374 MOV  ECX,EDX
+  9376 ROL  AL,CL
+  9378 MOV  byte ptr [EBP + local_1d],
+  937b MOVZX EAX,byte ptr [EBP + local_
+  937f MOV  byte ptr [EBP + local_15],
+  9382 MOVZX EAX,byte ptr [EBP + var]
+  9386 ADD  byte ptr [EBP + local_15],
+  9389 MOV  EAX,dword ptr [EBP + local
+  938c MOV  byte ptr [EBP + var],AL
+  938f MOVZX EAX,byte ptr [EBP + local_
+  9393 MOV  byte ptr [EBP + local_16],
+  9396 MOV  dword ptr [EBP + local_1c]
+  939d MOV  EDX,dword ptr [EBP + local
+  93a0 MOVZX EAX,byte ptr [EBP + local_
+  93a4 MOV  ECX,EDX
+  93a6 ROR  AL,CL
+  93a8 MOV  byte ptr [EBP + local_16],
+  93ab MOVZX EAX,byte ptr [EBP + local_
+  93af MOV  byte ptr [EBP + var],AL
+  93b2 MOVZX EAX,byte ptr [EBP + local_
+  93b6 SUB  ESP,0x8
+  93b9 PUSH dword ptr [EBP + fp]
+  93bc PUSH EAX
+  93bd CALL <EXTERNAL>::fputc
+  93c2 ADD  ESP,0x10
+```
+
+Notre première partie du chiffrement se passe ici où la fonction fait des bitwise operations tél que des `shift` et un `or`.
+```c
+res = ((byte)byteFromFile << 2 | (byte)byteFromFile >> 6) + var
+```
+A compléter quelles instructions font quoi par rapport le chiffrement...
+
+```assembly
+0804935a 83 c4 10        ADD        ESP,0x10
+0804935d 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+08049360 0f b6 c0        MOVZX      EAX,AL
+08049363 88 45 e7        MOV        byte ptr [EBP + local_1d],AL
+08049366 c7 45 e0        MOV        dword ptr [EBP + local_24],0x2
+            02 00 00 00
+0804936d 8b 55 e0        MOV        EDX,dword ptr [EBP + local_24]
+08049370 0f b6 45 e7     MOVZX      EAX,byte ptr [EBP + local_1d]
+08049374 89 d1           MOV        ECX,EDX
+08049376 d2 c0           ROL        AL,CL  
+08049378 88 45 e7        MOV        byte ptr [EBP + local_1d],AL
+0804937b 0f b6 45 e7     MOVZX      EAX,byte ptr [EBP + local_1d]
+0804937f 88 45 ef        MOV        byte ptr [EBP + local_15],AL
+08049382 0f b6 45 f7     MOVZX      EAX,byte ptr [EBP + var]
+08049386 00 45 ef        ADD        byte ptr [EBP + local_15],AL
+08049389 8b 45 f0        MOV        EAX,dword ptr [EBP + local_14]
+0804938c 88 45 f7        MOV        byte ptr [EBP + var],AL
+0804938f 0f b6 45 ef     MOVZX      EAX,byte ptr [EBP + local_15]
+08049393 88 45 ee        MOV        byte ptr [EBP + local_16],AL
+```
+
+Deuxième partie mettre à jour la constante pour l'addition au byte.
+A completer aussi...
+
+```c
+var = res >> 2 | res * '@';
+```
+
+```assembly
+08049393 88 45 ee        MOV        byte ptr [EBP + local_16],AL
+08049396 c7 45 e8        MOV        dword ptr [EBP + local_1c],0x2
+            02 00 00 00
+0804939d 8b 55 e8        MOV        EDX,dword ptr [EBP + local_1c]
+080493a0 0f b6 45 ee     MOVZX      EAX,byte ptr [EBP + local_16]
+080493a4 89 d1           MOV        ECX,EDX
+080493a6 d2 c8           ROR        AL,CL
+080493a8 88 45 ee        MOV        byte ptr [EBP + local_16],AL
+080493ab 0f b6 45 ee     MOVZX      EAX,byte ptr [EBP + local_16]
+080493af 88 45 f7        MOV        byte ptr [EBP + var],AL
+080493b2 0f b6 45 ef     MOVZX      EAX,byte ptr [EBP + local_15]
+080493b6 83 ec 08        SUB        ESP,0x8
+080493b9 ff 75 08        PUSH       dword ptr [EBP + fp]
+```
 
 ### Question 6.3 : Quelle/s instruction/s n’a/ont pas été vue/s en cours ? Que fait/font elle/s ?
 
