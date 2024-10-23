@@ -19,29 +19,33 @@ void encrypt0(FILE* fp) {
     }
 }
 
-void decrypt0(FILE* fp) {
+void decrypt0(FILE* inputFile, FILE* outputFile) {
     int readCharFromFile;
     char res;
-    if (fp == NULL) return;
-    rewind(fp);
+
+    if (inputFile == NULL || outputFile == NULL) {
+        printf("Error opening file(s)\n");
+        return;
+    }
+
     while (1) {
-        readCharFromFile = fgetc(fp);
+        readCharFromFile = fgetc(inputFile);
         if (readCharFromFile == EOF) {
             printf("End of file\n");
             break;
         }
-        fseek(fp, -1, SEEK_CUR);
 
-        printf("%ld\n",ftell(fp));
-
-        res = (int)(char)readCharFromFile ^ 0xef;
+        res = (char)readCharFromFile ^ 0xef;
         if ((res & 2) == 0) {
-            fputc(res, fp);
+            fputc(res, outputFile);  // Write the result to the output file
             continue;
         }
-        res = (int)(char)readCharFromFile ^ 0xbe;
-        fputc(res, fp);
+
+        res = (char)readCharFromFile ^ 0xbe;
+        fputc(res, outputFile);  // Write the result to the output file
     }
+
+    printf("Decryption completed\n");
 }
 
 void encrypt1(FILE *fp) {
@@ -60,12 +64,10 @@ void encrypt1(FILE *fp) {
     }
 }
 
-void decrypt1(FILE *fp, char* newfile) {
+void decrypt1(FILE *fp, FILE* output) {
     int byteFromFile;
     int var = 7;
     char res;
-
-    FILE* output = fopen(newfile, "wb");
 
     while(1) {
         byteFromFile = fgetc(fp);
@@ -78,8 +80,6 @@ void decrypt1(FILE *fp, char* newfile) {
         var = byteFromFile >> 2 | byteFromFile * '@';
         fputc(res,output);
     }
-    fclose(output);
-
 }
 
 typedef uint8_t byte;
@@ -319,38 +319,32 @@ void decrypt2(FILE *file, char* newfile){
 
 
 int main(void) {
-    /*
-    FILE* fp = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/confidential.txt", "rb+");
-    if (fp == NULL) {
+
+    FILE* fp = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/encrypted/confidential.txt", "rb+");
+    FILE* output = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/confidential.txt","wb");
+
+    if (fp == NULL || output == NULL) {
         perror("Failed to open file");
         return 1;
     }
 
-    decrypt0(fp);
-    fclose(fp); */
+    decrypt0(fp,output);
+    fclose(fp);
+    fclose(output);
 
-    /*
-    FILE* fp1 = fopen("C:\\dev\\slb\\slb\\Lab01\\reverse_c\\passwords.txt", "rb+");
-    if (fp1 == NULL) {
+
+    FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/encrypted/salary.txt", "rb+");
+    FILE* output1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/salary.txt","wb");
+    if (fp1 == NULL  || output1 == NULL) {
         perror("Failed to open file");
         return 1;
     }
-    decrypt1(fp1, "pass_o.txt");
+
+    decrypt1(fp1, output1);
     fclose(fp1);
-
-    */
-
+    fclose(output1);
 
     /*
-    FILE* fp2 = fopen("C:\\dev\\slb\\slb\\Lab01\\reverse_c\\salary.txt", "rb+");
-    if (fp2 == NULL) {
-        perror("Failed to open file");
-        return 1;
-    }
-    decrypt1(fp2, "sal_o.txt");
-    fclose(fp2);
-    */
-
     FILE* fp3 = fopen("C:\\dev\\slb\\slb\\Lab01\\reverse_c\\passwords.txt", "rb+");
     if (fp3 == NULL) {
         perror("Failed to open file");
@@ -375,7 +369,7 @@ int main(void) {
     decrypt2(testfile, "pt.txt");
     fclose(testfile);
 
-
+    */
     /*
     FILE* f2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/salary.txt", "rb+");
     if (f2 == NULL) {
