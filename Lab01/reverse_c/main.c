@@ -37,12 +37,12 @@ void decrypt0(FILE* inputFile, FILE* outputFile) {
 
         res = (char)readCharFromFile ^ 0xef;
         if ((res & 2) == 0) {
-            fputc(res, outputFile);  // Write the result to the output file
+            fputc(res, outputFile);
             continue;
         }
 
         res = (char)readCharFromFile ^ 0xbe;
-        fputc(res, outputFile);  // Write the result to the output file
+        fputc(res, outputFile);
     }
 
     printf("Decryption completed\n");
@@ -72,9 +72,7 @@ void decrypt1(FILE *fp, FILE* output) {
     while(1) {
         byteFromFile = fgetc(fp);
         if (byteFromFile == EOF) break;
-        //fseek(fp, -1, SEEK_CUR);
-        //res = ((int)byteFromFile << 2 | (int)byteFromFile >> 6) + var;
-        uint8_t a = byteFromFile;
+
         res = (((byteFromFile-var)&0xFF) << 6) | (((byteFromFile-var)&0xFF) >> 2);
 
         var = byteFromFile >> 2 | byteFromFile * '@';
@@ -250,7 +248,7 @@ void encrypt2(FILE *param_1, char* newfile){
     return;
 }
 
-void decrypt2(FILE *file, char* newfile){
+void decrypt2(FILE *file, FILE* output){
     uint uVar1;
     byte bVar2;
     byte bVar3;
@@ -302,7 +300,6 @@ void decrypt2(FILE *file, char* newfile){
     }
 
     local_18 = 0;
-    FILE* output = fopen(newfile, "wb");
 
     int i = 0;
     while(i < filesize-1){
@@ -313,12 +310,13 @@ void decrypt2(FILE *file, char* newfile){
         byte_from_file = (int)(char)(byte)byte_from_file + (int)(char)local_40[local_18 + 1];
         fputc(byte_from_file,output);
     }
-    fclose(output);
     return;
 }
 
 
 int main(void) {
+
+    /** ------------------------ SECTION ENCRYPT0 ------------------------ **/
 
     FILE* fp = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/encrypted/confidential.txt", "rb+");
     FILE* output = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/confidential.txt","wb");
@@ -332,6 +330,7 @@ int main(void) {
     fclose(fp);
     fclose(output);
 
+    /** ------------------------ SECTION ENCRYPT1 ------------------------ **/
 
     FILE* fp1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/encrypted/salary.txt", "rb+");
     FILE* output1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/salary.txt","wb");
@@ -344,57 +343,14 @@ int main(void) {
     fclose(fp1);
     fclose(output1);
 
-    /*
-    FILE* fp3 = fopen("C:\\dev\\slb\\slb\\Lab01\\reverse_c\\passwords.txt", "rb+");
-    if (fp3 == NULL) {
-        perror("Failed to open file");
-        return 1;
-    }
-    decrypt2(fp3, "p_o.txt");
-    fclose(fp3);
+    /** ------------------------ SECTION ENCRYPT2 ------------------------ **/
 
-    byte testb[16] = {0, 48, 31, 232, 0, 0, 0, 0, 9, 84, 158, 138, 251, 127, 0, 0};
-    byte enctest[16] = {48, 48, 31, 232, 0, 0, 0, 0, 9, 80, 54, 53, 247, 127, 0, 0};
-    byte testb2[16] = {1, 211, 7, 21, 107, 10, 0, 0, 0, 187, 211, 7, 21, 107, 10, 0};
-    
+    FILE* fp2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/encrypted/passwords.txt","rb+");
+    FILE* output2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/passwords.txt","wb");
 
-    FILE* testfile = fopen("test.txt", "rb");
-    if (fp3 == NULL) {
-        perror("Failed to open file");
-        return 1;
-    }
-    encrypt2(testfile, "c.txt");
-    fclose(testfile);
-    testfile = fopen("c.txt", "rb+");
-    decrypt2(testfile, "pt.txt");
-    fclose(testfile);
+    decrypt2(fp2,output2);
+    fclose(fp2);
+    fclose(output2);
 
-    */
-    /*
-    FILE* f2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/salary.txt", "rb+");
-    if (f2 == NULL) {
-        perror("Failed to open file");
-        return 1;
-    }
-    decrypt1(f2);
-    fclose(f2); */
-
-    /*
-    fp = fopen("passwords.txt", "rb");
-    if (fp == NULL) {
-        perror("Failed to open file");
-        return 1;
-    }
-    // Call encrypt0 or decrypt0 as needed
-    fclose(fp);
-
-    fp = fopen("confidential.txt", "wb+");
-    if (fp == NULL) {
-        perror("Failed to open file");
-        return 1;
-    }
-    // Call encrypt0 or decrypt0 as needed
-    fclose(fp);
-        */
     return 0;
 }
