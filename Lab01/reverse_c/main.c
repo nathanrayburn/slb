@@ -23,11 +23,6 @@ void decrypt0(FILE* inputFile, FILE* outputFile) {
     int readCharFromFile;
     char res;
 
-    if (inputFile == NULL || outputFile == NULL) {
-        printf("Error opening file(s)\n");
-        return;
-    }
-
     while (1) {
         readCharFromFile = fgetc(inputFile);
         if (readCharFromFile == EOF) {
@@ -323,7 +318,7 @@ int main(void) {
 
     if (fp == NULL || output == NULL) {
         perror("Failed to open file");
-        return 1;
+        return -1;
     }
 
     decrypt0(fp,output);
@@ -336,7 +331,7 @@ int main(void) {
     FILE* output1 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/salary.txt","wb");
     if (fp1 == NULL  || output1 == NULL) {
         perror("Failed to open file");
-        return 1;
+        return -1;
     }
 
     decrypt1(fp1, output1);
@@ -347,6 +342,11 @@ int main(void) {
 
     FILE* fp2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/encrypted/passwords.txt","rb+");
     FILE* output2 = fopen("/home/nathan/Documents/git/slb/Lab01/reverse_c/decrypted/passwords.txt","wb");
+
+    if(fp2 == NULL || output2 == NULL) {
+        perror("Failed to open file");
+        return -1;
+    }
 
     decrypt2(fp2,output2);
     fclose(fp2);
